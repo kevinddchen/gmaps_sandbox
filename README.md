@@ -1,9 +1,9 @@
-# Caompus Navigation Prototype
+# Campus Navigation Prototype
 
 The intention for this repo is to develop a prototype for Campus Navigation.
 
 We are using the <a href="https://developers.google.com/maps/documentation/javascript/overview">Maps Javascript API</a>.
-Github hosts a chosen branch at <a href="https://kevinddchen.github.io/sdk_sandbox">kevinddchen.github.io/gmaps_sandbox</a>. 
+Github hosts a chosen branch at <a href="https://kevinddchen.github.io/gmaps_sandbox">kevinddchen.github.io/gmaps_sandbox</a>. 
 
 - <a href="index.html">index.html</a> contains the basic webpage---very simple, nothing much to see here.
 - <a href="index.js">index.js</a> contains the Javascript that creates the map.
