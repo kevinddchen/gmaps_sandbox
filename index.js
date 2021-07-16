@@ -4,6 +4,10 @@ function initMap() {
   const map = new google.maps.Map(document.getElementById("map"), {
     zoom: 17, // furthest zoom that can see buildings
     center: { lat: 42.37429224178242, lng: -71.11628459241092 }, // arbitrary start location
+    mapId: 'b536490391ffa6c2'
+    //38.95803379307676, -95.24730202877726
+    //lat: 42.37429224178242, lng: -71.11628459241
+
   });
 
   // turn off point-of-interest visibility
@@ -16,10 +20,15 @@ function initMap() {
 
   // create one infowindow for all markers
   const makeContent = x => 
+    '<div id="content">' +
+    '<div id="siteNotice">' +
+    "</div>" +
+    `<h1 id="firstHeading" class="firstHeading">${x.title}</h1>` +
+    "</div>" +
     '<iframe' +
     ' width="600"' +
     ' height="480"' +
-    ` src="https://my.matterport.com/show?m=${x}"` +
+    ` src="https://my.matterport.com/show?m=${x.sid}"` +
     ' frameborder="0"' +
     ' allow="fullscreen">' +
     '</iframe>';
@@ -31,17 +40,11 @@ function initMap() {
   for (let i=0; i < meta.length; i++) {
     const marker = new google.maps.Marker({
       position: meta[i].position,
-      title: meta[i].title,
       map: map,
     });
-    const label = new google.maps.InfoWindow({ 
-      content: meta[i].title,
-      zIndex: 0,
-    });
-    label.open(marker.getMap(), marker);
     marker.addListener("click", () => {
       infoWindow.close();
-      infoWindow.setContent(makeContent(meta[i].sid));
+      infoWindow.setContent(makeContent(meta[i]));
       infoWindow.open(marker.getMap(), marker);
     });
   };
