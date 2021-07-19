@@ -1,7 +1,6 @@
 // Initialize and add the map
 function initMap() {
-
-  const map = new google.maps.Map(document.getElementById("map"), {
+  map = new google.maps.Map(document.getElementById("map"), {
     zoom: 17, // furthest zoom that can see buildings
     center: { lat: 42.37429224178242, lng: -71.11628459241092 }, // arbitrary start location
     mapId: 'b536490391ffa6c2'
@@ -17,6 +16,44 @@ function initMap() {
       stylers: [{ visibility: "off" }],
     },
   ]});
+
+  map.moveCamera({
+    center: new google.maps.LatLng(42.37429224178242, -71.11628459241092),
+    zoom: 16,
+    heading: 320,
+    tilt: 47.5
+  });
+
+  const buttons = [
+    ["Rotate Left", "rotate", 20, google.maps.ControlPosition.LEFT_CENTER],
+    ["Rotate Right", "rotate", -20, google.maps.ControlPosition.RIGHT_CENTER],
+    ["Tilt Down", "tilt", 20, google.maps.ControlPosition.TOP_CENTER],
+    ["Tilt Up", "tilt", -20, google.maps.ControlPosition.BOTTOM_CENTER],
+  ];
+  buttons.forEach(([text, mode, amount, position]) => {
+    const controlDiv = document.createElement("div");
+    const controlUI = document.createElement("button");
+    controlUI.classList.add("ui-button");
+    controlUI.innerText = `${text}`;
+    controlUI.addEventListener("click", () => {
+      adjustMap(mode, amount);
+    });
+    controlDiv.appendChild(controlUI);
+    map.controls[position].push(controlDiv);
+  });
+
+  const adjustMap = function (mode, amount) {
+    switch (mode) {
+      case "tilt":
+        map.setTilt(map.getTilt() + amount);
+        break;
+      case "rotate":
+        map.setHeading(map.getHeading() + amount);
+        break;
+      default:
+        break;
+    }
+  };
 
   // create one infowindow for all markers
   const makeContent = x => 
@@ -44,6 +81,7 @@ function initMap() {
     const marker = new google.maps.Marker({
       position: meta[i].position,
       map: map,
+      icon: 'image.png'
     });
     marker.addListener("click", () => {
       infoWindow.close();
