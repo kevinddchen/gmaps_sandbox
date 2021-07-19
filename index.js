@@ -81,7 +81,7 @@ function initMap() {
     const marker = new google.maps.Marker({
       position: meta[i].position,
       map: map,
-      icon: 'image.png'
+      icon: 'icon.png'
     });
     marker.addListener("click", () => {
       infoWindow.close();
