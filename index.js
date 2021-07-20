@@ -45,7 +45,7 @@ function initMap() {
     if(text == "Tilt Up"){
       controlUI.classList.add("ui-Up")
     }
-    //controlUI.classList.add("ui-button");
+    controlUI.classList.add("ui-button");
     //controlUI.innerText = `${text}`;
     controlUI.addEventListener("click", () => {
       adjustMap(mode, amount);

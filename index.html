@@ -7,14 +7,15 @@
     <script src=./index.js async></script>
   </head>
   <body>
-    <h3>Google Maps Demo</h3>
-    <!--The div element for the map -->
-    <div id="map"></div>
-
+    <main>
+      <h3>Google Maps Demo</h3>
+      <!--The div element for the map -->
+      <div id="map"></div>
+    </main>
     <!-- Async script executes immediately and must be after any DOM elements used in callback. -->
     <!-- Kevin's personal PI key -- please do not distribute! -->
     <script
-      src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAwRBYK_6qUnFrtWyb42ogf5L9I6-R6LvA&v=beta&callback=initMap">
+      src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAwRBYK_6qUnFrtWyb42ogf5L9I6-R6LvA&v=beta&callback=initMap" async>
     </script>
   </body>
 </html>
