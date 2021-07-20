@@ -1,7 +1,8 @@
 /* Always set the map height explicitly to define the size of the div
        * element that contains the map. */
        #map {
-        height: 100%;
+        height: 900px;
+        width: 100%;
       }
       
       /* Optional: Makes the sample page fill the window. */
@@ -13,17 +14,99 @@
       }
       
       .ui-button {
-        background-color: #fff;
+        background-color: transparent;
         border: 0;
         border-radius: 2px;
         box-shadow: 0 1px 4px -1px rgba(0, 0, 0, 0.3);
-        margin: 10px;
+        margin: 22px;
         padding: 0 0.5em;
         font: 400 18px Roboto, Arial, sans-serif;
         overflow: hidden;
-        height: 40px;
         cursor: pointer;
+        width: 100px;
+        height: 100px;
+        transition: .5s;
+        float: left;
+        box-shadow: -2px 2px 0 black;
       }
-      .ui-button:hover {
-        background: #ebebeb;
+
+      .ui-left {
+        transform: rotate(45deg);
+        background-color: transparent;
+        border: 0;
+        border-radius: 2px;
+        box-shadow: 0 1px 4px -1px rgba(0, 0, 0, 0.3);
+        margin: 22px;
+        padding: 0 0.5em;
+        font: 400 18px Roboto, Arial, sans-serif;
+        overflow: hidden;
+        cursor: pointer;
+        width: 50px;
+        height: 50px;
+        transition: .5s;
+        float: left;
+        box-shadow: -2px 2px 0 black;
+      }
+      .ui-right {
+        transform: rotate(-135deg);
+        background-color: transparent;
+        border: 0;
+        border-radius: 2px;
+        box-shadow: 0 1px 4px -1px rgba(0, 0, 0, 0.3);
+        margin: 22px;
+        padding: 0 0.5em;
+        font: 400 18px Roboto, Arial, sans-serif;
+        overflow: hidden;
+        cursor: pointer;
+        width: 50px;
+        height: 50px;
+        transition: .5s;
+        float: left;
+        box-shadow: -2px 2px 0 black;
+      }
+      .ui-Up {
+        transform: rotate(135deg);
+        background-color: transparent;
+        border: 0;
+        border-radius: 2px;
+        box-shadow: 0 1px 4px -1px rgba(0, 0, 0, 0.3);
+        margin: 8px;
+        padding: 0 0.5em;
+        font: 400 18px Roboto, Arial, sans-serif;
+        overflow: hidden;
+        cursor: pointer;
+        width: 50px;
+        height: 50px;
+        transition: .5s;
+        float: left;
+        box-shadow: -2px 2px 0 black;
+      }
+      .ui-Down {
+        transform: rotate(-45deg);
+        background-color: transparent;
+        border: 0;
+        border-radius: 2px;
+        box-shadow: 0 1px 4px -1px rgba(0, 0, 0, 0.3);
+        margin: 8px;
+        padding: 0 0.5em;
+        font: 400 18px Roboto, Arial, sans-serif;
+        overflow: hidden;
+        cursor: pointer;
+        width: 50px;
+        height: 50px;
+        transition: .5s;
+        float: left;
+        box-shadow: -2px 2px 0 black;
+      }
+      .ui-left:hover {
+        background: #696969;
+      }
+      .ui-right:hover {
+        background: #696969;
+      }
+      .ui-Up:hover {
+        background: #696969;
+      }
+      .ui-Down:hover {
+        background: #696969;
       }

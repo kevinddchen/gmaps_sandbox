@@ -33,8 +33,20 @@ function initMap() {
   buttons.forEach(([text, mode, amount, position]) => {
     const controlDiv = document.createElement("div");
     const controlUI = document.createElement("button");
-    controlUI.classList.add("ui-button");
-    controlUI.innerText = `${text}`;
+    if(text == "Rotate Left"){
+      controlUI.classList.add("ui-left")
+    }
+    if(text == "Rotate Right"){
+      controlUI.classList.add("ui-right")
+    }
+    if(text == "Tilt Down"){
+      controlUI.classList.add("ui-Down")
+    }
+    if(text == "Tilt Up"){
+      controlUI.classList.add("ui-Up")
+    }
+    //controlUI.classList.add("ui-button");
+    //controlUI.innerText = `${text}`;
     controlUI.addEventListener("click", () => {
       adjustMap(mode, amount);
     });
