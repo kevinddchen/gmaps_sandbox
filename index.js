@@ -27,8 +27,8 @@ function initMap() {
   const buttons = [
     ["Rotate Left", "rotate", 20, google.maps.ControlPosition.LEFT_CENTER],
     ["Rotate Right", "rotate", -20, google.maps.ControlPosition.RIGHT_CENTER],
-    ["Tilt Down", "tilt", 20, google.maps.ControlPosition.TOP_CENTER],
-    ["Tilt Up", "tilt", -20, google.maps.ControlPosition.BOTTOM_CENTER],
+    ["Tilt Down", "tilt", -20, google.maps.ControlPosition.BOTTOM_CENTER],
+    ["Tilt Up", "tilt", 20, google.maps.ControlPosition.TOP_CENTER],
   ];
   buttons.forEach(([text, mode, amount, position]) => {
     const controlDiv = document.createElement("div");
