@@ -1,112 +1,117 @@
 /* Always set the map height explicitly to define the size of the div
-       * element that contains the map. */
-       #map {
-        height: 900px;
-        width: 100%;
-      }
-      
-      /* Optional: Makes the sample page fill the window. */
-      html,
-      body {
-        height: 100%;
-        margin: 0;
-        padding: 0;
-      }
-      
-      .ui-button {
-        background-color: transparent;
-        border: 0;
-        border-radius: 2px;
-        box-shadow: 0 1px 4px -1px rgba(0, 0, 0, 0.3);
-        margin: 22px;
-        padding: 0 0.5em;
-        font: 400 18px Roboto, Arial, sans-serif;
-        overflow: hidden;
-        cursor: pointer;
-        width: 100px;
-        height: 100px;
-        transition: .5s;
-        float: left;
-        box-shadow: -2px 2px 0 black;
-      }
+* element that contains the map. */
+#map {
+  height: 100%;
+  width: 100%;
+}
 
-      .ui-left {
-        transform: rotate(45deg);
-        background-color: transparent;
-        border: 0;
-        border-radius: 2px;
-        box-shadow: 0 1px 4px -1px rgba(0, 0, 0, 0.3);
-        margin: 22px;
-        padding: 0 0.5em;
-        font: 400 18px Roboto, Arial, sans-serif;
-        overflow: hidden;
-        cursor: pointer;
-        width: 50px;
-        height: 50px;
-        transition: .5s;
-        float: left;
-        box-shadow: -2px 2px 0 black;
-      }
-      .ui-right {
-        transform: rotate(-135deg);
-        background-color: transparent;
-        border: 0;
-        border-radius: 2px;
-        box-shadow: 0 1px 4px -1px rgba(0, 0, 0, 0.3);
-        margin: 22px;
-        padding: 0 0.5em;
-        font: 400 18px Roboto, Arial, sans-serif;
-        overflow: hidden;
-        cursor: pointer;
-        width: 50px;
-        height: 50px;
-        transition: .5s;
-        float: left;
-        box-shadow: -2px 2px 0 black;
-      }
-      .ui-Up {
-        transform: rotate(135deg);
-        background-color: transparent;
-        border: 0;
-        border-radius: 2px;
-        box-shadow: 0 1px 4px -1px rgba(0, 0, 0, 0.3);
-        margin: 8px;
-        padding: 0 0.5em;
-        font: 400 18px Roboto, Arial, sans-serif;
-        overflow: hidden;
-        cursor: pointer;
-        width: 50px;
-        height: 50px;
-        transition: .5s;
-        float: left;
-        box-shadow: -2px 2px 0 black;
-      }
-      .ui-Down {
-        transform: rotate(-45deg);
-        background-color: transparent;
-        border: 0;
-        border-radius: 2px;
-        box-shadow: 0 1px 4px -1px rgba(0, 0, 0, 0.3);
-        margin: 8px;
-        padding: 0 0.5em;
-        font: 400 18px Roboto, Arial, sans-serif;
-        overflow: hidden;
-        cursor: pointer;
-        width: 50px;
-        height: 50px;
-        transition: .5s;
-        float: left;
-        box-shadow: -2px 2px 0 black;
-      }
-      .ui-left:hover {
-        background: #696969;
-      }
-      .ui-right:hover {
-        background: #696969;
-      }
-      .ui-Up:hover {
-        background: #696969;
-      }
-      .ui-Down:hover {
-        background: #696969;
-      }
+/* Optional: Makes the sample page fill the window. */
+html,
+body {
+  margin: 0;
+  padding: 0;
+}
+
+main {
+  height: 100vh;
+  display: flex;
+  flex-direction: column;
+}
+
+.ui-button {
+  background-color: transparent;
+  border: 0;
+  border-radius: 2px;
+  box-shadow: 0 1px 4px -1px rgba(0, 0, 0, 0.3);
+  margin: 22px;
+  padding: 0 0.5em;
+  font: 400 18px Roboto, Arial, sans-serif;
+  overflow: hidden;
+  cursor: pointer;
+  width: 100px;
+  height: 100px;
+  transition: .5s;
+  float: left;
+  box-shadow: -2px 2px 0 black;
+}
+
+.ui-left {
+  transform: rotate(45deg);
+  background-color: transparent;
+  border: 0;
+  border-radius: 2px;
+  box-shadow: 0 1px 4px -1px rgba(0, 0, 0, 0.3);
+  margin: 22px;
+  padding: 0 0.5em;
+  font: 400 18px Roboto, Arial, sans-serif;
+  overflow: hidden;
+  cursor: pointer;
+  width: 50px;
+  height: 50px;
+  transition: .5s;
+  float: left;
+  box-shadow: -2px 2px 0 black;
+}
+.ui-right {
+  transform: rotate(-135deg);
+  background-color: transparent;
+  border: 0;
+  border-radius: 2px;
+  box-shadow: 0 1px 4px -1px rgba(0, 0, 0, 0.3);
+  margin: 22px;
+  padding: 0 0.5em;
+  font: 400 18px Roboto, Arial, sans-serif;
+  overflow: hidden;
+  cursor: pointer;
+  width: 50px;
+  height: 50px;
+  transition: .5s;
+  float: left;
+  box-shadow: -2px 2px 0 black;
+}
+.ui-Up {
+  transform: rotate(135deg);
+  background-color: transparent;
+  border: 0;
+  border-radius: 2px;
+  box-shadow: 0 1px 4px -1px rgba(0, 0, 0, 0.3);
+  margin: 8px;
+  padding: 0 0.5em;
+  font: 400 18px Roboto, Arial, sans-serif;
+  overflow: hidden;
+  cursor: pointer;
+  width: 50px;
+  height: 50px;
+  transition: .5s;
+  float: left;
+  box-shadow: -2px 2px 0 black;
+}
+.ui-Down {
+  transform: rotate(-45deg);
+  background-color: transparent;
+  border: 0;
+  border-radius: 2px;
+  box-shadow: 0 1px 4px -1px rgba(0, 0, 0, 0.3);
+  margin: 8px;
+  padding: 0 0.5em;
+  font: 400 18px Roboto, Arial, sans-serif;
+  overflow: hidden;
+  cursor: pointer;
+  width: 50px;
+  height: 50px;
+  transition: .5s;
+  float: left;
+  box-shadow: -2px 2px 0 black;
+}
+.ui-left:hover {
+  background: #696969;
+}
+.ui-right:hover {
+  background: #696969;
+}
+.ui-Up:hover {
+  background: #696969;
+}
+.ui-Down:hover {
+  background: #696969;
+}
