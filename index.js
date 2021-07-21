@@ -4,8 +4,6 @@ function initMap() {
     zoom: 17, // furthest zoom that can see buildings
     center: { lat: 42.37429224178242, lng: -71.11628459241092 }, // arbitrary start location
     mapId: 'b536490391ffa6c2'
-    //38.95803379307676, -95.24730202877726
-    //lat: 42.37429224178242, lng: -71.11628459241
 
   });
 
@@ -45,8 +43,7 @@ function initMap() {
     if(text == "Tilt Up"){
       controlUI.classList.add("ui-Up")
     }
-    //controlUI.classList.add("ui-button");
-    //controlUI.innerText = `${text}`;
+  
     controlUI.addEventListener("click", () => {
       adjustMap(mode, amount);
     });
@@ -93,7 +90,8 @@ function initMap() {
     const marker = new google.maps.Marker({
       position: meta[i].position,
       map: map,
-      icon: 'icon.png'
+      icon: 'icon.png',
+      collisionBehavior: google.maps.CollisionBehavior.REQUIRED_AND_HIDES_OPTIONAL,
     });
     marker.addListener("click", () => {
       infoWindow.close();
@@ -144,4 +142,8 @@ const meta = [
     sid: 'GycExKiYVFp',
     description: 'Harvard has finished an eight-month renovation of Robinson Hall, the building housing the History Department, according to Associate Dean for Physical Resources and Planning Michael N. Lichten.'
   },
+  {
+    position: {lat: 42.373431927523875, lng: -71.1219333484599},
+    title: 'Harvard Yearbook'
+  }
 ];
