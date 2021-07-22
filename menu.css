@@ -38,6 +38,8 @@
 #searchbar-icon {
   display: flex;
   align-items: center;
+  box-sizing: border-box;
+  padding: 7px;
   height: 100%;
   max-height: 36px;
 }
