@@ -4,16 +4,28 @@
     <title>Harvard Map Demo</title>
     </style>
     <link rel="stylesheet" type="text/css" href="./style.css" />
-    <script src=./index.js async></script>
+    <link rel="stylesheet" type="text/css" href="./menu.css" />
+    <script src="./meta.js"></script>
   </head>
   <body>
-    <h3>Google Maps Demo</h3>
-    <!--The div element for the map -->
-    <div id="map"></div>
-
+    <main>
+      <div id="menu">
+        <div id="searchbar-container">
+          <input type="text" id="searchbar-input">
+          <i id="searchbar-icon"><img src="./icon-search.svg" alt="Search" /></i>
+        </div>
+        <div id="building-list-container">
+          <!-- Add options as <div>s here with JS -->
+        </div>
+      </div>
+      <!--The div element for the map -->
+      <div id="map"></div>
+    </main>
     <!-- Async script executes immediately and must be after any DOM elements used in callback. -->
+    <!-- Kevin's personal PI key -- please do not distribute! -->
+    <script src="./index.js"></script>
     <script
-      src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAwRBYK_6qUnFrtWyb42ogf5L9I6-R6LvA&v=beta&callback=initMap">
+      src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAwRBYK_6qUnFrtWyb42ogf5L9I6-R6LvA&v=beta&callback=initMap" async>
     </script>
   </body>
 </html>
