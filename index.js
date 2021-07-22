@@ -91,25 +91,16 @@ function initMap() {
     zIndex: 1,
   });
 
+  //array to store markers
+  let markerArray = []
   // create markers using metadata and initialize building list
   for (let i=0; i < meta.length; i++) {
     const buildingInfo = meta[i];
-    const marker = new google.maps.Marker({
-      position: buildingInfo.position,
-      map: map,
-      icon: 'icon.png',
-      collisionBehavior: google.maps.CollisionBehavior.REQUIRED_AND_HIDES_OPTIONAL,
-    });
-    marker.addListener("click", () => {
-      infoWindow.close();
-      infoWindow.setContent(makeContent(buildingInfo));
-      infoWindow.open(marker.getMap(), marker);
-    });
-
     displayedBuildings.push(buildingInfo);
     createBuildingListDiv(buildingInfo);
   };
 
+  //create highlighted area using coordinates
   for(let i = 0; i<coorData.length; i++){
     var coordinates = buildCoordinatesArrayFromString(coorData[i]);
     const Polygon = new google.maps.Polygon({
@@ -123,6 +114,7 @@ function initMap() {
     Polygon.setMap(map)
   }
 
+//function creates Div for the building list
 function createBuildingListDiv(building) {
   const elt = document.createElement("div");
   elt.classList.add("building-list-item");
@@ -131,6 +123,23 @@ function createBuildingListDiv(building) {
   elt.onclick = () => {
     selectedBuilding = elt.dataset.value;
     renderBuildingsList();
+    console.log(building);
+    const marker = new google.maps.Marker({
+      title:building.title,
+      position: building.position,
+      map: map,
+      icon: 'icon.png',
+      collisionBehavior: google.maps.CollisionBehavior.REQUIRED_AND_HIDES_OPTIONAL,
+    });
+    map.moveCamera({
+      center: new google.maps.LatLng(building.position.lat, building.position.lng),
+      zoom: 17,
+    });
+    markerArray.push(marker)
+    infoWindow.close();
+    infoWindow.setContent(makeContent(building));
+    infoWindow.open(marker.getMap(), marker);
+    
   };
   buildingListContainer.appendChild(elt);
 }
@@ -157,6 +166,7 @@ document.getElementById("searchbar-input").addEventListener("input", (ev) => {
   renderBuildingsList();
 });
 
+//function to save coordinates data into array
 function buildCoordinatesArrayFromString(MultiGeometryCoordinates){
   var finalData = [];
   var grouped = MultiGeometryCoordinates.split("\n");
