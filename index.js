@@ -11,12 +11,6 @@ function initMap() {
     zoom: 17, // furthest zoom that can see buildings
     center: { lat: 42.37429224178242, lng: -71.11628459241092 }, // arbitrary start location
     mapId: 'b536490391ffa6c2',
-
-    mapTypeControl: true,
-    mapTypeControlOptions: {
-      style: google.maps.MapTypeControlStyle.HORIZONTAL_BAR,
-      position: google.maps.ControlPosition.TOP_CENTER,
-    },
   });
 
   // turn off point-of-interest visibility

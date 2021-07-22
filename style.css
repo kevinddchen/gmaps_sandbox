@@ -18,7 +18,6 @@ input, select, textarea, button{font-family:inherit;}
 main {
   height: 100vh;
   display: flex;
-  flex-direction: column;
 }
 
 .ui-button {
