@@ -11,6 +11,16 @@
         height: 100%;
         margin: 0;
         padding: 0;
+        font-family: Arial, Helvetica, sans-serif;
+      }
+
+      main {
+        height: 100vh;
+        display: flex;
+        flex-direction: column;
+      }
+      h3 {
+        text-align: center;
       }
       
       .ui-button {
