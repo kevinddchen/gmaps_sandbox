@@ -11,8 +11,7 @@ function initMap() {
     zoom: 17, // furthest zoom that can see buildings
     center: { lat: 42.37429224178242, lng: -71.11628459241092 }, // arbitrary start location
     mapId: 'b536490391ffa6c2',
-    //38.95803379307676, -95.24730202877726
-    //lat: 42.37429224178242, lng: -71.11628459241
+
     mapTypeControl: true,
     mapTypeControlOptions: {
       style: google.maps.MapTypeControlStyle.HORIZONTAL_BAR,
@@ -38,8 +37,8 @@ function initMap() {
   const buttons = [
     ["Rotate Left", "rotate", 20, google.maps.ControlPosition.LEFT_CENTER],
     ["Rotate Right", "rotate", -20, google.maps.ControlPosition.RIGHT_CENTER],
-    ["Tilt Down", "tilt", -20, google.maps.ControlPosition.BOTTOM_CENTER],
-    ["Tilt Up", "tilt", 20, google.maps.ControlPosition.TOP_CENTER],
+    ["Tilt Down", "tilt", 20, google.maps.ControlPosition.BOTTOM_CENTER],
+    ["Tilt Up", "tilt", -20, google.maps.ControlPosition.TOP_CENTER],
   ];
   buttons.forEach(([text, mode, amount, position]) => {
     const controlDiv = document.createElement("div");
@@ -57,7 +56,6 @@ function initMap() {
       controlUI.classList.add("ui-Up")
     }
     controlUI.classList.add("ui-button");
-    //controlUI.innerText = `${text}`;
     controlUI.addEventListener("click", () => {
       adjustMap(mode, amount);
     });
@@ -105,7 +103,8 @@ function initMap() {
     const marker = new google.maps.Marker({
       position: buildingInfo.position,
       map: map,
-      icon: 'icon.png'
+      icon: 'icon.png',
+      collisionBehavior: google.maps.CollisionBehavior.REQUIRED_AND_HIDES_OPTIONAL,
     });
     marker.addListener("click", () => {
       infoWindow.close();
@@ -116,6 +115,19 @@ function initMap() {
     displayedBuildings.push(buildingInfo);
     createBuildingListDiv(buildingInfo);
   };
+
+  var coordinates = buildCoordinatesArrayFromString(kmlData);
+  const HarvardPolygon = new google.maps.Polygon({
+    paths: coordinates,
+    strokeColor: '#FF3158',
+    strokeOpacity: 1,
+    strokeWeight: 3,
+    fillColor: '#FF3158',
+    fillOpacity: 0.3
+  });
+
+  HarvardPolygon.setMap(map);
+
 };
 
 function createBuildingListDiv(building) {
@@ -146,9 +158,24 @@ function renderBuildingsList() {
   });
 }
 
-// Event listeners
 document.getElementById("searchbar-input").addEventListener("input", (ev) => {
   const search = ev.currentTarget.value.toLowerCase();
   displayedBuildings = meta.filter(b => b.title.toLowerCase().includes(search));
   renderBuildingsList();
 });
+
+function buildCoordinatesArrayFromString(MultiGeometryCoordinates){
+  var finalData = [];
+  var grouped = MultiGeometryCoordinates.split("\n");
+
+  grouped.forEach(function(item, i){
+      let a = item.trim().split(',');
+
+      finalData.push({
+          lng: parseFloat(a[0]),
+          lat: parseFloat(a[1])
+      });
+  });
+
+  return finalData;
+}
