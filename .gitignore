@@ -1,2 +1,3 @@
 # Ignore the local history saved by a VSCode extension I (Noah) use
 .history/
+.DS_Store
