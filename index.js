@@ -93,11 +93,13 @@ function initMap() {
 
   //array to store markers
   let markerArray = []
+  //console.log(meta);
   // create markers using metadata and initialize building list
   for (let i=0; i < meta.length; i++) {
     const buildingInfo = meta[i];
     displayedBuildings.push(buildingInfo);
     createBuildingListDiv(buildingInfo);
+    console.log(buildingInfo);
   };
 
   //create highlighted area using coordinates
