@@ -63,12 +63,6 @@ const meta = [
     and, more broadly, of the entire Harvard Library system. It honors 1907 Harvard College graduate and book collector Harry Elkins Widener, and was built by his mother Eleanor Elkins Widener after his death in the sinking of the RMS Titanic in 1912.`
   },
   {
-    position: {lat: 42.33584062017129, lng: -71.10424541607995},
-    title: 'Gordon Hall',
-    sid: 'okswy9QDTKR',
-    description: 'Designed by Shepley, Rutan, and Coolidge and built in 1906, Gordon Hall at Harvard Medical School is a Classical Revival marble building—the focal point of the medical Quadrangle on Longwood Avenue.'
-  },
-  {
     position: {lat: 42.376760939080654, lng: -71.11603100258333},
     title:'Science Center and Courtyard',
     sid:'i6ZvCMyzCsf',
