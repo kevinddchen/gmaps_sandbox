@@ -8,9 +8,17 @@ const buildingListContainer = document.getElementById("building-list-container")
 // Initialize and add the map
 function initMap() {
   map = new google.maps.Map(document.getElementById("map"), {
-    zoom: 17, // furthest zoom that can see buildings
+    zoom: 15, // furthest zoom that can see buildings
     center: { lat: 42.37429224178242, lng: -71.11628459241092 }, // arbitrary start location
     mapId: 'b536490391ffa6c2',
+    restriction: {
+      latLngBounds: {
+        north: 42.39, 
+        south: 42.35,
+        west: -71.130,
+        east: -71.107
+      },
+    },
   });
 
   // turn off point-of-interest visibility
@@ -20,13 +28,6 @@ function initMap() {
       stylers: [{ visibility: "off" }],
     },
   ]});
-
-  map.moveCamera({
-    center: new google.maps.LatLng(42.37429224178242, -71.11628459241092),
-    zoom: 16,
-    heading: 320,
-    tilt: 47.5
-  });
 
   const buttons = [
     ["Rotate Left", "rotate", 20, google.maps.ControlPosition.LEFT_CENTER],

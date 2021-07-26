@@ -49,7 +49,7 @@ const meta = [
     access to scholarly information and knowledge, preserving a historical record, and creating a stimulating and synergistic setting for intellectual growth.'
   },
   {
-    position: {lat: 42.3782423407095, lng: -71.11401291792323},
+    position: {lat: 42.378274042755464, lng: -71.11409874775126},
     title: 'Harvard Museum of the Ancient Near East',
     sid: 'bS17YNKCggy',
     description: 'Founded in 1889, the museum was conceived as a teaching tool to study the ancient histories and cultures of people who spoke Semitic languages, among them Israelites, Moabites, Arabs, Babylonians, and Phoenicians.\
