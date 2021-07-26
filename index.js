@@ -105,7 +105,6 @@ function initMap() {
     const buildingInfo = meta[i];
     displayedBuildings.push(buildingInfo);
     createBuildingListDiv(buildingInfo);
-    console.log(buildingInfo);
   };
 
   //create highlighted area using coordinates
@@ -117,10 +116,14 @@ function initMap() {
       strokeOpacity: 0.8,
       strokeWeight: 3,
       fillColor: '#FF3158',
-      fillOpacity: 0.3
+      fillOpacity: 0.3,
+      clickable: false
     })
     Polygon.setMap(map)
   }
+
+  var buildingA;
+  var buildingB;
 
 //function creates Div for the building list
 function createBuildingListDiv(building) {
@@ -131,7 +134,6 @@ function createBuildingListDiv(building) {
   elt.onclick = () => {
     selectedBuilding = elt.dataset.value;
     renderBuildingsList();
-    console.log(building);
     const marker = new google.maps.Marker({
       title:building.title,
       position: building.position,
@@ -144,10 +146,12 @@ function createBuildingListDiv(building) {
       zoom: 17,
     });
     markerArray.push(marker)
+    document.getElementById('start').value = building.title;
+    const startMenu = building.title;
+    buildingA = meta.find(b => b.title === startMenu);
     infoWindow.close();
     infoWindow.setContent(makeContent(building));
     infoWindow.open(marker.getMap(), marker);
-    
   };
   buildingListContainer.appendChild(elt);
 }
@@ -159,14 +163,13 @@ document.getElementById("searchbar-input").addEventListener("input", (ev) => {
 });
 
 // Event listeners
+
 const endMenu = document.getElementById('end');
 endMenu.addEventListener('change', (event) => {
   const value = event.currentTarget.value;
-  console.log(value);
-  const building = meta.find(b => b.title === value);
-  console.log(building);
-  calculateAndDisplayRoute(directionsService, directionsRenderer, { lat: 42.376468639837235, lng: -71.11823289325775 }, building.position);
-})
+  buildingB = meta.find(b => b.title === value);
+  calculateAndDisplayRoute(directionsService, directionsRenderer, buildingA.position, buildingB.position);
+});
 
 }
 
