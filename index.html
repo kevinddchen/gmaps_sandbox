@@ -2,26 +2,30 @@
 <html>
   <head>
     <title>Harvard Map Demo</title>
-
-    <style type="text/css">
-      /* Set the size of the div element that contains the map */
-      #map {
-        height: 800px;
-        width: 100%;
-      }
     </style>
-    <script src=./index.js async></script>
+    <link rel="stylesheet" type="text/css" href="./style.css" />
+    <link rel="stylesheet" type="text/css" href="./menu.css" />
+    <script src="./meta.js"></script>
   </head>
   <body>
-    <h3>Harvard Map Demo</h3>
-    <!--The div element for the map -->
-    <div id="map"></div>
-
+    <main>
+      <div id="menu">
+        <div id="searchbar-container">
+          <input type="text" id="searchbar-input">
+          <i id="searchbar-icon"><img src="./icon-magnifying-glass.svg" alt="Search" /></i>
+        </div>
+        <div id="building-list-container">
+          <!-- Add options as <div>s here with JS -->
+        </div>
+      </div>
+      <!--The div element for the map -->
+      <div id="map"></div>
+    </main>
     <!-- Async script executes immediately and must be after any DOM elements used in callback. -->
-    <!-- Kevin's personal PI key. Please do not distribute -->
+    <!-- Kevin's personal PI key -- please do not distribute! -->
+    <script src="./index.js"></script>
     <script
-      src="https://maps.googleapis.com/maps/api/js?key=AIzaSyB5Iolhqfps7KSjP40Vlsaydfg_I_n55b8&callback=initMap&libraries=&v=weekly"
-      async
-    ></script>
+      src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAwRBYK_6qUnFrtWyb42ogf5L9I6-R6LvA&v=beta&callback=initMap" async>
+    </script>
   </body>
 </html>
