@@ -20,6 +20,11 @@ function initMap() {
       },
     },
   });
+  
+  //directions service set up
+  const directionsRenderer = new google.maps.DirectionsRenderer();
+  directionsRenderer.setMap(map);
+  const directionsService = new google.maps.DirectionsService();
 
   // turn off point-of-interest visibility
   map.setOptions({ styles: [
@@ -147,27 +152,23 @@ function createBuildingListDiv(building) {
   buildingListContainer.appendChild(elt);
 }
 
-function renderBuildingsList() {
-  Array.from(buildingListContainer.children).forEach(item => {
-    const val = item.dataset.value;
-    // check if building should be hidden
-    if (!displayedBuildings.find(b => b.sid === val)) {
-      item.style.display = "none";
-      return;
-    }
-    item.style.display = "block";
-    item.classList.remove("selected");
-    if (item.dataset.value === selectedBuilding) {
-      item.classList.add("selected");
-    }
-  });
-}
-
 document.getElementById("searchbar-input").addEventListener("input", (ev) => {
   const search = ev.currentTarget.value.toLowerCase();
   displayedBuildings = meta.filter(b => b.title.toLowerCase().includes(search));
   renderBuildingsList();
 });
+
+// Event listeners
+const endMenu = document.getElementById('end');
+endMenu.addEventListener('change', (event) => {
+  const value = event.currentTarget.value;
+  console.log(value);
+  const building = meta.find(b => b.title === value);
+  console.log(building);
+  calculateAndDisplayRoute(directionsService, directionsRenderer, { lat: 42.376468639837235, lng: -71.11823289325775 }, building.position);
+})
+
+}
 
 //function to save coordinates data into array
 function buildCoordinatesArrayFromString(MultiGeometryCoordinates){
@@ -186,5 +187,36 @@ function buildCoordinatesArrayFromString(MultiGeometryCoordinates){
   return finalData;
 }
 
+//function to calculate and display desired route
+function calculateAndDisplayRoute(directionsService, directionsRenderer, origin, destination) {
+  directionsService
+    .route({
+      origin: origin,
+      destination: destination,
+      // Note that Javascript allows us to access the constant
+      // using square brackets and a string value as its
+      // "property."
+      travelMode: "WALKING",
+    })
+    .then((response) => {
+      directionsRenderer.setDirections(response);
+    })
+    .catch((e) => console.log("Directions request failed due to " + e));
+}
+
+function renderBuildingsList() {
+  Array.from(buildingListContainer.children).forEach(item => {
+    const val = item.dataset.value;
+    // check if building should be hidden
+    if (!displayedBuildings.find(b => b.sid === val)) {
+      item.style.display = "none";
+      return;
+    }
+    item.style.display = "block";
+    item.classList.remove("selected");
+    if (item.dataset.value === selectedBuilding) {
+      item.classList.add("selected");
+    }
+  });
 }
 

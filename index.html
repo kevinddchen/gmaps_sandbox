@@ -6,6 +6,7 @@
     <link rel="stylesheet" type="text/css" href="./style.css" />
     <link rel="stylesheet" type="text/css" href="./menu.css" />
     <script src="./meta.js"></script>
+    <script src="https://polyfill.io/v3/polyfill.min.js?features=default"></script>
   </head>
   <body>
     <main>
@@ -17,6 +18,22 @@
         <div id="building-list-container">
           <!-- Add options as <div>s here with JS -->
         </div>
+        <div id="floating-panel">
+          <strong>From: </strong>
+          <select id="start" class="select-css">
+            <option value="Littauer Center of Public Administration">Littauer Center of Public Administration</option>
+          </select>
+          <strong>To: </strong>
+          <select id="end" class="select-css">
+            <option value="Harvard Hall">Harvard Hall</option>
+            <option value="CGIS ">CGIS</option>
+            <option value="Harvard Library">Harvard Library</option>
+            <option value="Weissman Preservation Center">Weissman Preservation Center</option>
+            <option value="Center for Government and International Studies">Center for Government and International Studies</option>
+            <option value="Lowell House">Lowell House</option>
+            <option value="Robinson Hall">Robinson Hall</option>
+          </select>
+      </div>
       </div>
       <!--The div element for the map -->
       <div id="map"></div>
