@@ -105,6 +105,7 @@ function initMap() {
     const buildingInfo = meta[i];
     displayedBuildings.push(buildingInfo);
     createBuildingListDiv(buildingInfo);
+    createBuildingListSelect(buildingInfo);
   };
 
   //create highlighted area using coordinates
@@ -170,6 +171,16 @@ endMenu.addEventListener('change', (event) => {
   buildingB = meta.find(b => b.title === value);
   calculateAndDisplayRoute(directionsService, directionsRenderer, buildingA.position, buildingB.position);
 });
+
+//function creates Select for the directions
+function createBuildingListSelect(building) {
+  let select = document.getElementById('end');
+  const opt = document.createElement("option");
+  opt.value = building.title;
+  opt.text = building.title;
+  select.add(opt, null);
+}
+
 
 }
 
