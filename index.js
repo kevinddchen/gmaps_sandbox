@@ -5,6 +5,11 @@ let selectedBuilding = '';
 let displayedBuildings = [];
 const buildingListContainer = document.getElementById("building-list-container");
 
+//directions service set up
+var map;
+var directionsDisplay;
+var directionsService;
+
 // Initialize and add the map
 function initMap() {
   map = new google.maps.Map(document.getElementById("map"), {
@@ -22,9 +27,9 @@ function initMap() {
   });
   
   //directions service set up
-  const directionsRenderer = new google.maps.DirectionsRenderer();
-  directionsRenderer.setMap(map);
-  const directionsService = new google.maps.DirectionsService();
+  directionsDisplay = new google.maps.DirectionsRenderer();
+  directionsService = new google.maps.DirectionsService();
+  directionsDisplay.setMap(map);
 
   // turn off point-of-interest visibility
   map.setOptions({ styles: [
@@ -169,7 +174,7 @@ const endMenu = document.getElementById('end');
 endMenu.addEventListener('change', (event) => {
   const value = event.currentTarget.value;
   buildingB = meta.find(b => b.title === value);
-  calculateAndDisplayRoute(directionsService, directionsRenderer, buildingA.position, buildingB.position);
+  calculateAndDisplayRoute(directionsService, directionsDisplay, buildingA.position, buildingB.position);
 });
 
 //function creates Select for the directions
@@ -181,6 +186,13 @@ function createBuildingListSelect(building) {
   select.add(opt, null);
 }
 
+//click event to clean current route
+let btn = document.getElementById('clean');
+btn.addEventListener("click", function() {
+  if (directionsDisplay != null) {
+    directionsDisplay.setMap(null);
+  }
+});
 
 }
 
@@ -202,7 +214,8 @@ function buildCoordinatesArrayFromString(MultiGeometryCoordinates){
 }
 
 //function to calculate and display desired route
-function calculateAndDisplayRoute(directionsService, directionsRenderer, origin, destination) {
+function calculateAndDisplayRoute(directionsService, directionsDisplay, origin, destination) {
+  directionsDisplay.setMap(map);
   directionsService
     .route({
       origin: origin,
@@ -213,7 +226,7 @@ function calculateAndDisplayRoute(directionsService, directionsRenderer, origin,
       travelMode: "WALKING",
     })
     .then((response) => {
-      directionsRenderer.setDirections(response);
+      directionsDisplay.setDirections(response);
     })
     .catch((e) => console.log("Directions request failed due to " + e));
 }

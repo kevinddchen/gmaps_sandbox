@@ -82,6 +82,7 @@ main {
   -webkit-appearance: none;
   appearance: none;
   background-color: #fff;
+  transition: border 200ms ease;
   /* note: bg image below uses 2 urls. The first is an svg data uri for the arrow icon, and the second is the gradient. 
     for the icon, if you want to change the color, be sure to use `%23` instead of `#`, since it's a url. You can also swap in a different svg icon or an external image reference
     
@@ -93,7 +94,7 @@ main {
 }
 /* Hover style */
 .select-css:hover {
-  border-color: #888;
+  border-color: #FF3158;
 }
 /* Focus style */
 .select-css:focus {
@@ -125,4 +126,20 @@ main {
 
 .select-css:disabled:hover, .select-css[aria-disabled=true] {
   border-color: #aaa;
+}
+
+.button {
+  background-color: #ffffff; 
+  border: none;
+  color: black;
+  padding: 10px 24px;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+  font-size: 16px;
+  border-radius: 12px;
+  border: 1px solid #FF3158;
+  margin: 12px;
+  position:relative;
+  left: 20%;
 }
