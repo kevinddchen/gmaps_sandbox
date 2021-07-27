@@ -51,16 +51,9 @@ const meta = [
   {
     position: {lat: 42.378274042755464, lng: -71.11409874775126},
     title: 'Harvard Museum of the Ancient Near East',
-    sid: 'bS17YNKCggy',
+    sid: 'V8k4GWRTDCb',
     description: 'Founded in 1889, the museum was conceived as a teaching tool to study the ancient histories and cultures of people who spoke Semitic languages, among them Israelites, Moabites, Arabs, Babylonians, and Phoenicians.\
     The museum’s focus remains on the wide variety of diverse peoples living in the eastern Mediterranean region, parts of modern-day Iraq, and even of north Africa, including the Egyptians, Assyrians, Hittites, and Philistines.'
-  },
-  {
-    position: {lat: 42.37365275791725, lng: -71.11650550258352},
-    title: 'Widener Library',
-    sid: 'fs3gQv7n1QG',
-    description: `The Harry Elkins Widener Memorial Library, housing some 3.5 million books in its "vast and cavernous" stacks, is the center­piece of the Harvard College Libraries (the libraries of Harvard's Faculty of Arts and Sciences) \
-    and, more broadly, of the entire Harvard Library system. It honors 1907 Harvard College graduate and book collector Harry Elkins Widener, and was built by his mother Eleanor Elkins Widener after his death in the sinking of the RMS Titanic in 1912.`
   },
   {
     position: {lat: 42.376760939080654, lng: -71.11603100258333},
