@@ -270,7 +270,31 @@ function calculateAndDisplayRoute(directionsService, directionsDisplay, origin, 
       directionsDisplay.setDirections(response);
     })
     .catch((e) => console.log("Directions request failed due to " + e));
+    requestAnimationFrame(animate);
 }
+
+let mouseDown = false;
+
+document.addEventListener("mousedown", () => {
+  mouseDown = true;
+});
+document.addEventListener("mouseup", () => {
+  mouseDown = false;
+})
+
+let heading = 0;
+let tilt = 60;
+function animate() {
+  if (map && !mouseDown) {
+    heading += 0.2;
+    tilt;
+   // adjustMap += 0.5;
+    map.moveCamera({ heading });
+  }
+
+  requestAnimationFrame(animate);
+}
+
 
 function renderBuildingsList() {
   Array.from(buildingListContainer.children).forEach(item => {
