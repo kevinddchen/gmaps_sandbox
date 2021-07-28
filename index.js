@@ -232,7 +232,10 @@ function calculateAndDisplayRoute(directionsService, directionsDisplay, origin, 
 }
 
 function renderBuildingsList() {
-  Array.from(buildingListContainer.children).forEach(item => {
+  Array.from(buildingListContainer.children).sort((a, b) => {
+    return a.title.localeCompare(b.title);
+  })
+  .forEach(item => {
     const val = item.dataset.value;
     // check if building should be hidden
     if (!displayedBuildings.find(b => b.sid === val)) {
