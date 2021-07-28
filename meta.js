@@ -3,27 +3,6 @@
  */
 const meta = [
   {
-    position: {lat: 42.3734341345306, lng: -71.11649941670565},
-    title: 'Widener Library',
-    sid: 'fs3gQv7n1QG',
-    description: `The Harry Elkins Widener Memorial Library, housing some 3.5 million books in its "vast and cavernous" stacks, is the center­piece of the Harvard College Libraries (the libraries of Harvard's Faculty of Arts and Sciences) \
-    and, more broadly, of the entire Harvard Library system. It honors 1907 Harvard College graduate and book collector Harry Elkins Widener, and was built by his mother Eleanor Elkins Widener after his death in the sinking of the RMS Titanic in 1912.`
-  },
-  {
-    position: { lat: 42.37484391141072, lng: -71.11823573681987 }, 
-    title: 'Harvard Hall',
-    sid: 'DhGGdYSxAXN',
-    description: 'The present Harvard Hall replaces an earlier structure of the same name on the same site. The first Harvard Hall was built between 1674 and 1677. It was Harvard College first brick building and replaced a decaying wooden building located a few hundred feet to the\
-     southeast. Samuel Andrew, a local Cambridge merchant and shipwright was the master builder'
-  },
-  {
-    position: {lat: 42.37435355768863, lng: -71.11549895273889},
-    title: 'Sever Hall',
-    sid: 'opSBz3SgMg3',
-    description: `Sever Hall is an academic building at Harvard University designed by the American architect H. H. Richardson and built in the late 1870s. It is located in Harvard Yard in Cambridge, Massachusetts. It was designated a National \
-    Historic Landmark in 1970, recognized as one of Richardson's mature masterpieces`
-  },
-  {
     position: {lat: 42.37332110955503, lng: -71.1173080878118},
     title: 'Boylston Hall',
     sid: 'VrJDKwnJc9Q',
@@ -33,10 +12,25 @@ const meta = [
     juxtaposing glass and steel with historic details. It houses the offices of the Harvard Classics Department.`
   },
   {
-    position: { lat: 42.37471210920963, lng: -71.11494780740425 }, 
-    title: 'Robinson Hall',
-    sid: 'GycExKiYVFp',
-    description: 'Harvard has finished an eight-month renovation of Robinson Hall, the building housing the History Department, according to Associate Dean for Physical Resources and Planning Michael N. Lichten.'
+    position: { lat: 42.37563007285733, lng: -71.11323291791693 }, 
+    title: 'Center for Government and International Studies',
+    sid: 'FXNqoAZ3SHA',
+    description: 'The Center for Government and International Studies unites the Government Department, faculty of the History Department who have international research interests, and many of the international research centers in the Faculty of Arts and Sciences at Harvard. \
+    The complex is designed to promote lively, interdisciplinary exchange among faculty, students, and visitors from around the world.'
+  },
+  {
+    position: { lat: 42.37484391141072, lng: -71.11823573681987 }, 
+    title: 'Harvard Hall',
+    sid: 'DhGGdYSxAXN',
+    description: 'The present Harvard Hall replaces an earlier structure of the same name on the same site. The first Harvard Hall was built between 1674 and 1677. It was Harvard College first brick building and replaced a decaying wooden building located a few hundred feet to the\
+     southeast. Samuel Andrew, a local Cambridge merchant and shipwright was the master builder'
+  },
+  {
+    position: {lat: 42.378067593808055, lng: -71.11394352511542},
+    title: 'Harvard Museum of the Ancient Near East',
+    sid: 'bS17YNKCggy',
+    description: 'Founded in 1889, the museum was conceived as a teaching tool to study the ancient histories and cultures of people who spoke Semitic languages, among them Israelites, Moabites, Arabs, Babylonians, and Phoenicians.\
+    The museum’s focus remains on the wide variety of diverse peoples living in the eastern Mediterranean region, parts of modern-day Iraq, and even of north Africa, including the Egyptians, Assyrians, Hittites, and Philistines.'
   },
   {
     position: {lat: 42.374549798221835, lng: -71.11751626811608},
@@ -62,45 +56,11 @@ const meta = [
     description: 'CAMBRIDGE, Mass., Dec. 2--In a building, the newness of whose white granite facade shines in the wintry sunlight, the Harvard Graduate School of Public Administration goes into its academic year for the first time in the new Littauer Center of Public Administration',
   },
   {
-    position: { lat: 42.372262942322884, lng: -71.11987174774083 }, 
-    title: 'Weissman Preservation Center',
-    sid: '8iApc5dtvmi',
-    description: 'The Weissman Preservation Center exists to preserve the collections of books, manuscripts, prints, drawings, maps, photographs, and other holdings of Harvard University',
-  },
-  {
-    position: { lat: 42.37563007285733, lng: -71.11323291791693 }, 
-    title: 'Center for Government and International Studies',
-    sid: 'FXNqoAZ3SHA',
-    description: 'The Center for Government and International Studies unites the Government Department, faculty of the History Department who have international research interests, and many of the international research centers in the Faculty of Arts and Sciences at Harvard. \
-    The complex is designed to promote lively, interdisciplinary exchange among faculty, students, and visitors from around the world.'
-  },
-  {
     position: { lat: 42.37202569383172, lng: -71.11804970916374 }, 
     title: 'Lowell House',
     sid: 'Gb7TzfTuCoV',
     description: 'Lowell House is one of twelve undergraduate residential Houses at Harvard University, located at 10 Holyoke Place facing Mount Auburn Street between Harvard Yard and the Charles River. \
     Lowell House is simultaneously close to the Yard, Harvard Square, and other Harvard "River" houses, and its blue-capped bell tower, visible for many miles, is a local landmark.'
-  },
-  // {
-  //   position: {lat: 42.33537066687848, lng: -71.10361628908993},
-  //   title: 'HMS Countway Library',
-  //   sid: 'V8k4GWRTDCb',
-  //   description: 'The mission of the Countway Library is to cultivate and advance education, research, scholarship and professional growth in the health and biomedical sciences by facilitating \
-  //   access to scholarly information and knowledge, preserving a historical record, and creating a stimulating and synergistic setting for intellectual growth.'
-  // },
-  {
-    position: {lat: 42.378067593808055, lng: -71.11394352511542},
-    title: 'Harvard Museum of the Ancient Near East',
-    sid: 'V8k4GWRTDCb',
-    description: 'Founded in 1889, the museum was conceived as a teaching tool to study the ancient histories and cultures of people who spoke Semitic languages, among them Israelites, Moabites, Arabs, Babylonians, and Phoenicians.\
-    The museum’s focus remains on the wide variety of diverse peoples living in the eastern Mediterranean region, parts of modern-day Iraq, and even of north Africa, including the Egyptians, Assyrians, Hittites, and Philistines.'
-  },
-  {
-    position: {lat: 42.37568868407961, lng: -71.11650967606187},
-    title:'Science Center Courtyard',
-    sid:'i6ZvCMyzCsf',
-    description:`The Harvard University Science Center is Harvard's main classroom and laboratory building for undergraduate science and mathematics, in addition to housing numerous other facilities and services. Located just north of Harvard Yard, \
-    the Science Center was built in 1972 and opened in 1973 after a design by Josep Lluís Sert (then dean of the Harvard Graduate School of Design)`
   },
   {
     position: {lat: 42.37618008393806, lng: -71.11623340853427},
@@ -109,6 +69,42 @@ const meta = [
     description:`Originally created by celebrated sculptor Costantino Nivola for the Manhattan \
     showroom of Italian business machine manufacturer Olivetti, this bas-relief \
     represents a unique achievement in artistic technology.`
+  },
+  {
+    position: { lat: 42.37471210920963, lng: -71.11494780740425 }, 
+    title: 'Robinson Hall',
+    sid: 'GycExKiYVFp',
+    description: 'Harvard has finished an eight-month renovation of Robinson Hall, the building housing the History Department, according to Associate Dean for Physical Resources and Planning Michael N. Lichten.'
+  },
+  {
+    position: {lat: 42.37568868407961, lng: -71.11650967606187},
+    title:'Science Center Courtyard',
+    sid:'i6ZvCMyzCsf',
+    description: `The plaza between the Science Center and Harvard Yard, created by the depression \
+    of Cambridge Street and Broadway, is used at various times for food trucks, roller skating, ice \
+    skating, and other activities such as markets and concerts. Tents are erected for special events \
+    such as Commencement. An installation of large boulders and landscaping operates as a fountain \
+    during good weather.`
+  },
+  {
+    position: {lat: 42.37435355768863, lng: -71.11549895273889},
+    title: 'Sever Hall',
+    sid: 'opSBz3SgMg3',
+    description: `Sever Hall is an academic building at Harvard University designed by the American architect H. H. Richardson and built in the late 1870s. It is located in Harvard Yard in Cambridge, Massachusetts. It was designated a National \
+    Historic Landmark in 1970, recognized as one of Richardson's mature masterpieces`
+  },
+  {
+    position: { lat: 42.372262942322884, lng: -71.11987174774083 }, 
+    title: 'Weissman Preservation Center',
+    sid: '8iApc5dtvmi',
+    description: 'The Weissman Preservation Center exists to preserve the collections of books, manuscripts, prints, drawings, maps, photographs, and other holdings of Harvard University',
+  },
+  {
+    position: {lat: 42.3734341345306, lng: -71.11649941670565},
+    title: 'Widener Library',
+    sid: 'fs3gQv7n1QG',
+    description: `The Harry Elkins Widener Memorial Library, housing some 3.5 million books in its "vast and cavernous" stacks, is the center­piece of the Harvard College Libraries (the libraries of Harvard's Faculty of Arts and Sciences) \
+    and, more broadly, of the entire Harvard Library system. It honors 1907 Harvard College graduate and book collector Harry Elkins Widener, and was built by his mother Eleanor Elkins Widener after his death in the sinking of the RMS Titanic in 1912.`
   },
 ];
 
