@@ -287,7 +287,6 @@ let tilt = 60;
 function animate() {
   if (map && !mouseDown) {
     heading += 0.2;
-   // adjustMap += 0.5;
     map.moveCamera({ heading,60 });
   }
 
