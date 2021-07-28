@@ -239,11 +239,11 @@ function createBuildingListSelect(building) {
 //click event to clean current route
 let btn = document.getElementById('clean');
 btn.addEventListener("click", function() {
-  if (directionsDisplay != null) {
-    directionsDisplay.setMap(null);
-  }
-  document.getElementById('end').value = " ";
-  document.getElementById('start').value = " ";
+  // if (directionsDisplay != null) {
+  //   directionsDisplay.setMap(null);
+  // }
+  // document.getElementById('end').value = " ";
+  // document.getElementById('start').value = " ";
 
   mainMenu.classList.add("hide");
   directionsMenu.classList.remove("hide");

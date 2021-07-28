@@ -11,38 +11,39 @@
   </head>
   <body>
     <main>
-      <div id="menu">
-        <div id="searchbar-container">
-          <input type="text" id="searchbar-input">
-          <i id="searchbar-icon"><img src="./icon-magnifying-glass.svg" alt="Search" /></i>
+      <div id="ui-container">
+        <div id="menu">
+          <div id="searchbar-container">
+            <input type="text" id="searchbar-input">
+            <i id="searchbar-icon"><img src="./icon-magnifying-glass.svg" alt="Search" /></i>
+          </div>
+          <div id="building-list-container">
+            <!-- Add options as <div>s here with JS -->
+          </div>
+          <div id="floating-panel">
+            <!-- <strong>From: </strong>
+            <form>
+              <input type="text" class="select-css" id="start" READONLY/>
+            </form>
+            <strong>To: </strong>
+            <select id="end" class="select-css">
+              <\-- Add options as <option>s here with JS --\>
+            </select> -->
+            <button type = "submit" id='clean' class = 'button'> Clean Route </button> 
+          </div>
         </div>
-        <div id="building-list-container">
-          <!-- Add options as <div>s here with JS -->
-        </div>
-        <div id="floating-panel">
-          <strong>From: </strong>
-          <form>
-            <input type="text" class="select-css" id="start" READONLY/>
-          </form>
-          <strong>To: </strong>
-          <select id="end" class="select-css">
-            <!-- Add options as <option>s here with JS -->
-          </select>
-          <button type = "submit" id='clean' class = 'button'> Clean Route </button> 
-        </div>
-      </div>
-      <div id="directions" class="hide">
-        <button type="button" id="close-directions-button">Close</button>
-        <div id="floating-panel">
-          <strong>From: </strong>
-          <form>
-            <input type="text" class="select-css" id="start" READONLY/>
-          </form>
-          <strong>To: </strong>
-          <select id="end" class="select-css">
-            <!-- Add options as <option>s here with JS -->
-          </select>
-          <button type = "submit" id='clean' class = 'button'> Clean Route </button> 
+        <div id="directions" class="hide">
+          <div id="floating-panel">
+            <strong>From: </strong>
+            <form>
+              <input type="text" class="select-css" id="start" READONLY/>
+            </form>
+            <strong>To: </strong>
+            <select id="end" class="select-css">
+              <!-- Add options as <option>s here with JS -->
+            </select>
+            <button type = "submit" id='close-directions-button' class = 'button'> Clean Route </button> 
+          </div>
         </div>
       </div>
       <!--The div element for the map -->
