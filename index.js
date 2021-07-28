@@ -155,7 +155,7 @@ for (let i=0; i < meta.length; i++) {
     infoWindow.open(marker.getMap(), marker);
     map.moveCamera({
       center: new google.maps.LatLng(meta[i].position.lat, meta[i].position.lng),
-      zoom: 17,
+      zoom: 18,
     });
     markerArray.push(marker)
   });
@@ -195,6 +195,7 @@ function createBuildingListDiv(building) {
     map.moveCamera({
       center: new google.maps.LatLng(buildingA.position.lat, buildingA.position.lng),
       zoom: 20,
+      tilt: 40
     });
   };
   buildingListContainer.appendChild(elt);
@@ -230,6 +231,8 @@ btn.addEventListener("click", function() {
   if (directionsDisplay != null) {
     directionsDisplay.setMap(null);
   }
+document.getElementById('end').value = " ";
+document.getElementById('start').value = " ";
 });
 
 }
