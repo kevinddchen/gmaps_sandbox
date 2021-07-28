@@ -131,6 +131,55 @@ function initMap() {
   var buildingA;
   var buildingB;
 
+// create markers using metadata
+for (let i=0; i < meta.length; i++) {
+  const marker = new google.maps.Marker({
+    position: meta[i].position,
+    map: map,
+    icon: {
+      labelOrigin: new google.maps.Point(15,30),
+      url: "icon.png"
+    },
+    label: {
+      text: ' ',
+      color: "black",
+      fontWeight: "bold",
+      fontSize: "16px"
+    }
+  });
+  marker.addListener("click", () => {
+    const location = meta[i].position;
+    //calculateAndDisplayRoute(directionsService, directionsRenderer, { lat: 42.376468639837235, lng: -71.11823289325775 }, location);
+    infoWindow.close();
+    infoWindow.setContent(makeContent(meta[i]));
+    infoWindow.open(marker.getMap(), marker);
+    map.moveCamera({
+      center: new google.maps.LatLng(meta[i].position.lat, meta[i].position.lng),
+      zoom: 17,
+    });
+    markerArray.push(marker)
+  });
+
+  marker.addListener('mouseover', () => {
+    var Icon = marker.getIcon();
+    Icon.url = 'iconRed.png';
+    marker.setIcon(Icon);
+    var label = marker.getLabel();
+    label.text = meta[i].title;
+    marker.setLabel(label);
+    
+  });
+
+  marker.addListener('mouseout', () => {
+    var Icon = marker.getIcon();
+    Icon.url = 'icon.png';
+    marker.setIcon(Icon);
+    var label = marker.getLabel();
+    label.text = ' ';
+    marker.setLabel(label);
+  });
+};
+
 //function creates Div for the building list
 function createBuildingListDiv(building) {
   const elt = document.createElement("div");
@@ -140,24 +189,13 @@ function createBuildingListDiv(building) {
   elt.onclick = () => {
     selectedBuilding = elt.dataset.value;
     renderBuildingsList();
-    const marker = new google.maps.Marker({
-      title:building.title,
-      position: building.position,
-      map: map,
-      icon: 'icon.png',
-      collisionBehavior: google.maps.CollisionBehavior.REQUIRED_AND_HIDES_OPTIONAL,
-    });
-    map.moveCamera({
-      center: new google.maps.LatLng(building.position.lat, building.position.lng),
-      zoom: 17,
-    });
-    markerArray.push(marker)
     document.getElementById('start').value = building.title;
     const startMenu = building.title;
     buildingA = meta.find(b => b.title === startMenu);
-    infoWindow.close();
-    infoWindow.setContent(makeContent(building));
-    infoWindow.open(marker.getMap(), marker);
+    map.moveCamera({
+      center: new google.maps.LatLng(buildingA.position.lat, buildingA.position.lng),
+      zoom: 20,
+    });
   };
   buildingListContainer.appendChild(elt);
 }
