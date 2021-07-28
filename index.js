@@ -9,6 +9,16 @@ const buildingListContainer = document.getElementById("building-list-container")
 var map;
 var directionsDisplay;
 var directionsService;
+var distanceService;
+
+let mainMenu = document.getElementById("menu");
+let directionsMenu = document.getElementById("directions");
+let closeDirections = document.getElementById("close-directions-button");
+
+closeDirections.addEventListener("click", () => {
+  directionsMenu.classList.add("hide");
+  mainMenu.classList.remove("hide");
+});
 
 // Initialize and add the map
 function initMap() {
@@ -30,6 +40,7 @@ function initMap() {
   directionsDisplay = new google.maps.DirectionsRenderer();
   directionsService = new google.maps.DirectionsService();
   directionsDisplay.setMap(map);
+  distanceServer = new google.maps.DistanceMatrixService();
 
   // turn off point-of-interest visibility
   map.setOptions({ styles: [
@@ -231,8 +242,12 @@ btn.addEventListener("click", function() {
   if (directionsDisplay != null) {
     directionsDisplay.setMap(null);
   }
-document.getElementById('end').value = " ";
-document.getElementById('start').value = " ";
+  document.getElementById('end').value = " ";
+  document.getElementById('start').value = " ";
+
+  mainMenu.classList.add("hide");
+  directionsMenu.classList.remove("hide");
+
 });
 
 }
@@ -271,6 +286,8 @@ function calculateAndDisplayRoute(directionsService, directionsDisplay, origin, 
     })
     .catch((e) => console.log("Directions request failed due to " + e));
     requestAnimationFrame(animate);
+  
+  
 }
 
 let mouseDown = false;
@@ -287,9 +304,9 @@ let tilt = 60;
 function animate() {
   if (map && !mouseDown) {
     heading += 0.2;
-    tilt;
+    tilt -= 0.2;
    // adjustMap += 0.5;
-    map.moveCamera({ heading });
+    map.moveCamera({ heading, tilt });
   }
 
   requestAnimationFrame(animate);

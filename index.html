@@ -5,6 +5,7 @@
     </style>
     <link rel="stylesheet" type="text/css" href="./style.css" />
     <link rel="stylesheet" type="text/css" href="./menu.css" />
+    <link rel="stylesheet" type="text/css" href="./directions.css" />
     <script src="./meta.js"></script>
     <script src="https://polyfill.io/v3/polyfill.min.js?features=default"></script>
   </head>
@@ -28,7 +29,21 @@
             <!-- Add options as <option>s here with JS -->
           </select>
           <button type = "submit" id='clean' class = 'button'> Clean Route </button> 
+        </div>
       </div>
+      <div id="directions" class="hide">
+        <button type="button" id="close-directions-button">Close</button>
+        <div id="floating-panel">
+          <strong>From: </strong>
+          <form>
+            <input type="text" class="select-css" id="start" READONLY/>
+          </form>
+          <strong>To: </strong>
+          <select id="end" class="select-css">
+            <!-- Add options as <option>s here with JS -->
+          </select>
+          <button type = "submit" id='clean' class = 'button'> Clean Route </button> 
+        </div>
       </div>
       <!--The div element for the map -->
       <div id="map"></div>
