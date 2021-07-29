@@ -10,6 +10,15 @@ var map;
 var directionsDisplay;
 var directionsService;
 
+let mainMenu = document.getElementById("menu");
+let directionsMenu = document.getElementById("directions");
+let closeDirections = document.getElementById("close-directions-button");
+
+closeDirections.addEventListener("click", () => {
+  directionsMenu.classList.add("hide");
+  mainMenu.classList.remove("hide");
+});
+
 // Initialize and add the map
 function initMap() {
   map = new google.maps.Map(document.getElementById("map"), {
@@ -102,6 +111,10 @@ function initMap() {
     zIndex: 1,
   });
 
+  const windowLabels = new google.maps.InfoWindow({
+    zIndex: 1,
+  });
+
   //array to store markers
   let markerArray = []
   //console.log(meta);
@@ -155,6 +168,7 @@ function initMap() {
   var buildingB;
 
 // create markers using metadata
+var labelsArray = [];
 for (let i=0; i < meta.length; i++) {
   const marker = new google.maps.Marker({
     position: meta[i].position,
@@ -168,8 +182,10 @@ for (let i=0; i < meta.length; i++) {
       color: "black",
       fontWeight: "bold",
       fontSize: "16px"
-    }
+    },
+    title: meta[i].title
   });
+
   marker.addListener("click", () => {
     const location = meta[i].position;
     //calculateAndDisplayRoute(directionsService, directionsRenderer, { lat: 42.376468639837235, lng: -71.11823289325775 }, location);
@@ -181,34 +197,50 @@ for (let i=0; i < meta.length; i++) {
       zoom: 18,
     });
     markerArray.push(marker)
+    console.log(labelsArray);
+
   });
 
+  marker.addListener("mouseover", () => {
+    windowLabels.close();
+    windowLabels.setContent(marker.getTitle());
+    windowLabels.open(marker.getMap(), marker);
+  });
+
+
+  
   marker.addListener('mouseover', () => {
     var Icon = marker.getIcon();
     Icon.url = 'iconRed.png';
     marker.setIcon(Icon);
-    var label = marker.getLabel();
-    label.text = meta[i].title;
-    marker.setLabel(label);
-    
   });
 
   marker.addListener('mouseout', () => {
     var Icon = marker.getIcon();
     Icon.url = 'icon.png';
     marker.setIcon(Icon);
-    var label = marker.getLabel();
-    label.text = ' ';
-    marker.setLabel(label);
   });
+
+
 };
+
+
 
 //function creates Div for the building list
 function createBuildingListDiv(building) {
   const elt = document.createElement("div");
+  const dir = document.createElement("button");
   elt.classList.add("building-list-item");
   elt.textContent = building.title;
   elt.dataset.value = building.sid;
+  dir.setAttribute("id", building.sid);
+  dir.classList.add("navigation");
+  dir.innerHTML = "Directions >"; 
+  dir.addEventListener("click", () => {
+    mainMenu.classList.add("hide");
+    directionsMenu.classList.remove("hide");
+  });
+  elt.appendChild(dir);
   elt.onclick = () => {
     selectedBuilding = elt.dataset.value;
     renderBuildingsList();
@@ -220,6 +252,18 @@ function createBuildingListDiv(building) {
       zoom: 20,
       tilt: 40
     });
+  };
+
+  elt.onmouseover = () => {
+    let dirBtn = document.getElementById(building.sid);
+    dirBtn.style.display = "block";
+
+  };
+
+  elt.onmouseout = () => {
+    let dirBtn = document.getElementById(building.sid);
+    dirBtn.style.display = "none";
+
   };
   buildingListContainer.appendChild(elt);
 }
@@ -249,7 +293,7 @@ function createBuildingListSelect(building) {
 }
 
 //click event to clean current route
-let btn = document.getElementById('clean');
+let btn = document.getElementById('close-directions-button');
 btn.addEventListener("click", function() {
   if (directionsDisplay != null) {
     directionsDisplay.setMap(null);
@@ -257,6 +301,7 @@ btn.addEventListener("click", function() {
 document.getElementById('end').value = " ";
 document.getElementById('start').value = " ";
 });
+
 
 }
 
