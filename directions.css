@@ -23,3 +23,8 @@
   position: absolute;
   bottom: 20px;
 }
+
+.direction-step-div {
+  padding: 6px;
+  background-color: white;
+}
