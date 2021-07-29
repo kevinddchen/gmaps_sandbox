@@ -272,6 +272,7 @@ function buildCoordinatesArrayFromString(MultiGeometryCoordinates){
 //function to calculate and display desired route
 function calculateAndDisplayRoute(directionsService, directionsDisplay, origin, destination) {
   directionsDisplay.setMap(map);
+  directionsDisplay.setPanel(document.getElementById("direction-steps"));
   directionsService
     .route({
       origin: origin,
@@ -285,13 +286,12 @@ function calculateAndDisplayRoute(directionsService, directionsDisplay, origin, 
       directionsDisplay.setDirections(response);
       console.log(response);
       const steps = response.routes[0].legs[0].steps;
-      console.log(response);
-      steps.forEach(s => {
-        const div = document.createElement("div");
-        div.classList.add("direction-step-div");
-        div.innerHTML = s.instructions;
-        document.getElementById("direction-steps").appendChild(div);
-      });
+//       steps.forEach(s => {
+//         const div = document.createElement("div");
+//         div.classList.add("direction-step-div");
+//         div.innerHTML = s.instructions;
+//         document.getElementById("direction-steps").appendChild(div);
+//       });
     })
     .catch((e) => console.log("Directions request failed due to " + e));
     requestAnimationFrame(animate);
