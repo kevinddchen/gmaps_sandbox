@@ -20,6 +20,8 @@ closeDirections.addEventListener("click", () => {
   mainMenu.classList.remove("hide");
 });
 
+let routePoly = null;
+
 // Initialize and add the map
 function initMap() {
   map = new google.maps.Map(document.getElementById("map"), {
@@ -41,6 +43,12 @@ function initMap() {
   directionsService = new google.maps.DirectionsService();
   directionsDisplay.setMap(map);
   distanceServer = new google.maps.DistanceMatrixService();
+
+  routePoly = new google.maps.Polyline({
+    path: [],
+    strokeColor: '#FF3158',
+    strokeWeight: 3,
+  });
 
   // turn off point-of-interest visibility
   map.setOptions({ styles: [
@@ -272,6 +280,7 @@ function buildCoordinatesArrayFromString(MultiGeometryCoordinates){
 //function to calculate and display desired route
 function calculateAndDisplayRoute(directionsService, directionsDisplay, origin, destination) {
   directionsDisplay.setMap(map);
+  directionsDisplay.setPanel(document.getElementById("direction-steps"));
   directionsService
     .route({
       origin: origin,
@@ -290,13 +299,28 @@ function calculateAndDisplayRoute(directionsService, directionsDisplay, origin, 
         const div = document.createElement("div");
         div.classList.add("direction-step-div");
         div.innerHTML = s.instructions;
-        document.getElementById("direction-steps").appendChild(div);
+        //document.getElementById("direction-steps").appendChild(div);
       });
+
+      polylineFromRoute(response);
+
     })
     .catch((e) => console.log("Directions request failed due to " + e));
     requestAnimationFrame(animate);
-  
-  
+}
+
+// Thanks to Mike William's demo http://www.geocodezip.com/v3_GoogleEx_directions-midpoint.html
+function polylineFromRoute(response) {
+  const legs = response.routes[0].legs;
+  routePoly.setPath([]);
+  legs.forEach(leg => {
+    leg.steps.forEach(step => {
+      step.path.forEach(seg => {
+        routePoly.getPath().push(seg);
+      });
+    });
+  });
+  routePoly.setMap(map);
 }
 
 let mouseDown = false;
