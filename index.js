@@ -125,7 +125,30 @@ function initMap() {
       fillOpacity: 0.3,
       clickable: false
     })
+    
     Polygon.setMap(map)
+  }
+
+  //create highlighted area for buildings using coordinates
+  for(let i = 0; i<buildings.length; i++){
+    var coordinates = buildCoordinatesArrayFromString(buildings[i]);
+    const Polygon = new google.maps.Polygon({
+      paths: coordinates,
+      strokeColor: '#ffffed',
+      strokeOpacity: 0.8,
+      strokeWeight: 1,
+      fillColor: '#ffffed',
+      fillOpacity: 0,
+      visible: true
+    });
+    Polygon.addListener("mouseover",() => {
+      Polygon.setOptions({strokeOpacity: 0.8, strokeWeight: 3});
+    });
+
+    Polygon.addListener("mouseout",() => {
+      Polygon.setOptions({strokeOpacity: 0.8, strokeWeight: 1});
+    });
+    Polygon.setMap(map) 
   }
 
   var buildingA;
