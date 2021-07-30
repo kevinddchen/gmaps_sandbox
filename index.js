@@ -5,6 +5,10 @@ let selectedBuilding = '';
 let displayedBuildings = [];
 const buildingListContainer = document.getElementById("building-list-container");
 
+//global variables for animations
+let heading = 0;
+let tilt = 60;
+
 //directions service set up
 var map;
 var directionsDisplay;
@@ -12,12 +16,6 @@ var directionsService;
 
 let mainMenu = document.getElementById("menu");
 let directionsMenu = document.getElementById("directions");
-let closeDirections = document.getElementById("go-back-button");
-
-closeDirections.addEventListener("click", () => {
-  directionsMenu.classList.add("hide");
-  mainMenu.classList.remove("hide");
-});
 
 // Initialize and add the map
 function initMap() {
@@ -205,20 +203,17 @@ for (let i=0; i < meta.length; i++) {
     windowLabels.close();
     windowLabels.setContent(marker.getTitle());
     windowLabels.open(marker.getMap(), marker);
-  });
-
-
-  
-  marker.addListener('mouseover', () => {
     var Icon = marker.getIcon();
     Icon.url = 'iconRed.png';
     marker.setIcon(Icon);
   });
 
+
   marker.addListener('mouseout', () => {
     var Icon = marker.getIcon();
     Icon.url = 'icon.png';
     marker.setIcon(Icon);
+    windowLabels.close();
   });
 
 
@@ -280,7 +275,12 @@ const endMenu = document.getElementById('end');
 endMenu.addEventListener('change', (event) => {
   const value = event.currentTarget.value;
   buildingB = meta.find(b => b.title === value);
+  if (directionsDisplay != null) {
+    directionsDisplay.setMap(null);
+  }
+  stopAnimation();
   calculateAndDisplayRoute(directionsService, directionsDisplay, buildingA.position, buildingB.position);
+  
 });
 
 //function creates Select for the directions
@@ -300,6 +300,24 @@ btn.addEventListener("click", function() {
   }
 stopAnimation();
 document.getElementById('end').value = " ";
+});
+
+//click event to go back to main side menu
+let closeDirections = document.getElementById("go-back-button");
+closeDirections.addEventListener("click", () => {
+  directionsMenu.classList.add("hide");
+  mainMenu.classList.remove("hide");
+  if (directionsDisplay != null) {
+    directionsDisplay.setMap(null);
+  }
+  stopAnimation();
+  document.getElementById('end').value = " ";
+  map.moveCamera({
+    center: {lat: 42.37429224178242, lng: -71.11628459241092 },
+    zoom: 15,
+    tilt: 0,
+    heading: 0
+  });
 });
 
 
@@ -336,7 +354,7 @@ function calculateAndDisplayRoute(directionsService, directionsDisplay, origin, 
     })
     .then((response) => {
       directionsDisplay.setDirections(response);
-      console.log(response);
+      //console.log(response);
       //const steps = response.routes[0].legs[0].steps;
     })
     .catch((e) => console.log("Directions request failed due to " + e));
@@ -352,10 +370,9 @@ document.addEventListener("mouseup", () => {
   mouseDown = false;
 })
 
-let heading = 0;
-let tilt = 60;
 var animation;
 function animate() {
+  
   if (map && !mouseDown) {
     heading += 0.2;
     map.moveCamera({ heading, tilt });
@@ -365,15 +382,15 @@ function animate() {
 }
 
 function stopAnimation() {
-  mouseDown = true;
-  if(map && mouseDown){
-    map.moveCamera({
-      center: { lat: 42.37429224178242, lng: -71.11628459241092 },
-      zoom: 15,
-      tilt: 0
-    });
-  }
   cancelAnimationFrame(animation);
+  var name = document.getElementById('start').value;
+  building = meta.find(b => b.title === name);
+  console.log(building);
+  map.moveCamera({
+    center: new google.maps.LatLng(building.position.lat, building.position.lng),
+    zoom: 20,
+    tilt: 40
+  });
 }
 
 function renderBuildingsList() {
