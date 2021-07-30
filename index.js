@@ -39,7 +39,14 @@ function initMap() {
   });
   
   //directions service set up
-  directionsDisplay = new google.maps.DirectionsRenderer();
+  directionsDisplay = new google.maps.DirectionsRenderer({
+    polylineOptions: new google.maps.Polyline({
+      // map: map,
+      strokeColor: 'blue',
+      strokeWeight: 4,
+      strokeOpacity: 0.6,
+    }),
+  });
   directionsService = new google.maps.DirectionsService();
   directionsDisplay.setMap(map);
   distanceServer = new google.maps.DistanceMatrixService();
@@ -288,22 +295,60 @@ function calculateAndDisplayRoute(directionsService, directionsDisplay, origin, 
       // Note that Javascript allows us to access the constant
       // using square brackets and a string value as its
       // "property."
-      travelMode: "WALKING",
+      travelMode: "DRIVING",
     })
     .then((response) => {
       directionsDisplay.setDirections(response);
-      console.log(response);
+
+      const distance = response.routes[0].legs[0].distance.value;
+      const distanceObj = response.routes[0].legs[0].distance;
+
       const steps = response.routes[0].legs[0].steps;
-      console.log(response);
-      steps.forEach(s => {
-        const div = document.createElement("div");
-        div.classList.add("direction-step-div");
-        div.innerHTML = s.instructions;
-        //document.getElementById("direction-steps").appendChild(div);
+      let path = [];
+      steps.forEach(step => path.push(...(step.lat_lngs)));
+      path = path.map(p => {return { lat: p.lat(), lng: p.lng() }})
+
+      const frac = 0.5;
+      let dist = 0;
+      const targetDist = frac * distance;
+      let mid;
+      for (let i = 0; i < path.length; i++) {
+        if (i >= path.length-2) return;
+        const p0 = path[i];
+        const p1 = path[i+1];
+        console.log(p0, p1);
+        const d = haversineDistance(p0, p1);
+        // check if we found the segment with the midpoint
+        if (dist + d > targetDist) {
+          mlat = p1.lat - p0.lat;
+          mlng = p1.lng - p0.lng;
+          const t = (targetDist - dist) / d;
+          mid = {
+            // lat: p0.lat + (mlat * t),
+            // lng: p0.lng + (mlng * t),
+            lat: p0.lat,
+            lng: p0.lng,
+          };
+          break;
+        }
+        dist += d;
+      };
+
+      const marker = new google.maps.Marker({
+        position: mid,
+        map: map,
+        icon: {
+          labelOrigin: new google.maps.Point(15,30),
+          url: "icon.png"
+        },
+        label: {
+          text: `${distanceObj.text}`,
+          color: "black",
+          fontWeight: "bold",
+          fontSize: "16px"
+        }
       });
-
-      polylineFromRoute(response);
-
+      
     })
     .catch((e) => console.log("Directions request failed due to " + e));
     requestAnimationFrame(animate);
@@ -320,7 +365,33 @@ function polylineFromRoute(response) {
       });
     });
   });
-  routePoly.setMap(map);
+  //routePoly.setMap(map);
+}
+
+/**
+ * Copied from https://www.movable-type.co.uk/scripts/latlong.html
+ * Calculates the distance between two lat-lng coordinates.
+ * @param {{lat:number,lng:number}} p0 Point 0 (start)
+ * @param {{lat:number,lng:number}} p1 Point 1 (end)
+ * @returns Distance between the points in meters
+ */
+function haversineDistance(p0, p1) {
+  const [lat0, lng0] = [p0.lat, p0.lng];
+  const [lat1, lng1] = [p1.lat, p1.lng];
+  	
+  const R = 6371e3; // metres
+  const φ0 = lat0 * Math.PI/180; // φ, λ in radians
+  const φ1 = lat1 * Math.PI/180;
+  const Δφ = (lat1-lat0) * Math.PI/180;
+  const Δλ = (lng1-lng0) * Math.PI/180;
+
+  const a = Math.sin(Δφ/2) * Math.sin(Δφ/2) +
+            Math.cos(φ0) * Math.cos(φ1) *
+            Math.sin(Δλ/2) * Math.sin(Δλ/2);
+  const c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1-a));
+  const d = R * c; // in metres
+
+  return d;
 }
 
 let mouseDown = false;
@@ -340,7 +411,7 @@ function animate() {
     map.moveCamera({ heading, tilt });
   }
 
-  requestAnimationFrame(animate);
+  !mouseDown && requestAnimationFrame(animate);
 }
 
 
