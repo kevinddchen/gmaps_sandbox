@@ -1,0 +1,25 @@
+#directions {
+    height: 100%;
+    width: 100%;
+  
+    position: absolute;
+  
+    background-color: #e5e5e5;
+    box-sizing: border-box;
+    padding: 20px;
+  
+    display: flex;
+    flex-direction: column;
+    gap: 24px;
+  
+    transition: transform 250ms ease;
+  }
+  
+  #directions.hide {
+    transform: translateX(-100%);
+  }
+  
+  #directions #close-directions-button {
+    position: absolute;
+    bottom: 20px;
+  }
