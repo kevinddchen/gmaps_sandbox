@@ -12,7 +12,7 @@ var directionsService;
 
 let mainMenu = document.getElementById("menu");
 let directionsMenu = document.getElementById("directions");
-let closeDirections = document.getElementById("close-directions-button");
+let closeDirections = document.getElementById("go-back-button");
 
 closeDirections.addEventListener("click", () => {
   directionsMenu.classList.add("hide");
@@ -298,8 +298,8 @@ btn.addEventListener("click", function() {
   if (directionsDisplay != null) {
     directionsDisplay.setMap(null);
   }
+stopAnimation();
 document.getElementById('end').value = " ";
-document.getElementById('start').value = " ";
 });
 
 
@@ -336,8 +336,44 @@ function calculateAndDisplayRoute(directionsService, directionsDisplay, origin, 
     })
     .then((response) => {
       directionsDisplay.setDirections(response);
+      console.log(response);
+      //const steps = response.routes[0].legs[0].steps;
     })
     .catch((e) => console.log("Directions request failed due to " + e));
+    requestAnimationFrame(animate);
+}
+
+let mouseDown = false;
+
+document.addEventListener("mousedown", () => {
+  mouseDown = true;
+});
+document.addEventListener("mouseup", () => {
+  mouseDown = false;
+})
+
+let heading = 0;
+let tilt = 60;
+var animation;
+function animate() {
+  if (map && !mouseDown) {
+    heading += 0.2;
+    map.moveCamera({ heading, tilt });
+  }
+
+  animation = requestAnimationFrame(animate);
+}
+
+function stopAnimation() {
+  mouseDown = true;
+  if(map && mouseDown){
+    map.moveCamera({
+      center: { lat: 42.37429224178242, lng: -71.11628459241092 },
+      zoom: 15,
+      tilt: 0
+    });
+  }
+  cancelAnimationFrame(animation);
 }
 
 function renderBuildingsList() {
