@@ -14,6 +14,7 @@
   
     transition: transform 250ms ease;
     margin-top: auto;
+    align-items: center
   }
   
   #directions.hide {
@@ -24,13 +25,10 @@
     position: absolute;
     bottom: 60px;
     margin-bottom: 15px;
-    text-align: center;
   }
 
   #directions #go-back-button {
     position: absolute;
     bottom: 20px;
-    text-align: center;
-
 
   }
