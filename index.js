@@ -436,20 +436,19 @@ function calculateAndDisplayRoute(directionsService, directionsDisplay, origin, 
  * @param {{lat:number,lng:number}} p1 Point 1 (end)
  * @returns Distance between the points in meters
  */
-
 function haversineDistance(p0, p1) {
   const [lat0, lng0] = [p0.lat, p0.lng];
   const [lat1, lng1] = [p1.lat, p1.lng];
   	
   const R = 6371e3; // metres
-  const φ0 = lat0 * Math.PI/180; // φ, λ in radians
-  const φ1 = lat1 * Math.PI/180;
-  const Δφ = (lat1-lat0) * Math.PI/180;
-  const Δλ = (lng1-lng0) * Math.PI/180;
+  const phi0 = lat0 * Math.PI/180; // phi, lambda in radians
+  const phi1 = lat1 * Math.PI/180;
+  const delPhi = (lat1-lat0) * Math.PI/180;
+  const delLam = (lng1-lng0) * Math.PI/180;
 
-  const a = Math.sin(Δφ/2) * Math.sin(Δφ/2) +
-            Math.cos(φ0) * Math.cos(φ1) *
-            Math.sin(Δλ/2) * Math.sin(Δλ/2);
+  const a = Math.sin(delPhi/2) * Math.sin(delPhi/2) +
+            Math.cos(phi0) * Math.cos(phi1) *
+            Math.sin(delLam/2) * Math.sin(delLam/2);
   const c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1-a));
   const d = R * c; // in metres
 
