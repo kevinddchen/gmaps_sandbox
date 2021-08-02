@@ -17,17 +17,6 @@ var distanceService;
 
 let mainMenu = document.getElementById("menu");
 let directionsMenu = document.getElementById("directions");
-let closeDirections = document.getElementById("close-directions-button");
-
-closeDirections.addEventListener("click", () => {
-  directionsMenu.classList.add("hide");
-  mainMenu.classList.remove("hide");
-});
-
-let routePoly = null;
-
-let mainMenu = document.getElementById("menu");
-let directionsMenu = document.getElementById("directions");
 
 // Initialize and add the map
 function initMap() {
@@ -57,12 +46,6 @@ function initMap() {
   directionsService = new google.maps.DirectionsService();
   directionsDisplay.setMap(map);
   distanceServer = new google.maps.DistanceMatrixService();
-
-  routePoly = new google.maps.Polyline({
-    path: [],
-    strokeColor: '#FF3158',
-    strokeWeight: 3,
-  });
 
   // turn off point-of-interest visibility
   map.setOptions({ styles: [
@@ -191,61 +174,58 @@ function initMap() {
   var buildingA;
   var buildingB;
 
-// create markers using metadata
-var labelsArray = [];
-for (let i=0; i < meta.length; i++) {
-  const marker = new google.maps.Marker({
-    position: meta[i].position,
-    map: map,
-    icon: {
-      labelOrigin: new google.maps.Point(15,30),
-      url: "icon.png"
-    },
-    label: {
-      text: ' ',
-      color: "black",
-      fontWeight: "bold",
-      fontSize: "16px"
-    },
-    title: meta[i].title
-  });
-
-  marker.addListener("click", () => {
-    const location = meta[i].position;
-    //calculateAndDisplayRoute(directionsService, directionsRenderer, { lat: 42.376468639837235, lng: -71.11823289325775 }, location);
-    infoWindow.close();
-    infoWindow.setContent(makeContent(meta[i]));
-    infoWindow.open(marker.getMap(), marker);
-    map.moveCamera({
-      center: new google.maps.LatLng(meta[i].position.lat, meta[i].position.lng),
-      zoom: 18,
+  // create markers using metadata
+  var labelsArray = [];
+  for (let i=0; i < meta.length; i++) {
+    const marker = new google.maps.Marker({
+      position: meta[i].position,
+      map: map,
+      icon: {
+        labelOrigin: new google.maps.Point(15,30),
+        url: "icon.png"
+      },
+      label: {
+        text: ' ',
+        color: "black",
+        fontWeight: "bold",
+        fontSize: "16px"
+      },
+      title: meta[i].title
     });
-    markerArray.push(marker)
-    console.log(labelsArray);
 
-  });
+    marker.addListener("click", () => {
+      const location = meta[i].position;
+      //calculateAndDisplayRoute(directionsService, directionsRenderer, { lat: 42.376468639837235, lng: -71.11823289325775 }, location);
+      infoWindow.close();
+      infoWindow.setContent(makeContent(meta[i]));
+      infoWindow.open(marker.getMap(), marker);
+      map.moveCamera({
+        center: new google.maps.LatLng(meta[i].position.lat, meta[i].position.lng),
+        zoom: 18,
+      });
+      markerArray.push(marker)
+      console.log(labelsArray);
 
-  marker.addListener("mouseover", () => {
-    windowLabels.close();
-    windowLabels.setContent(marker.getTitle());
-    windowLabels.open(marker.getMap(), marker);
-    var Icon = marker.getIcon();
-    Icon.url = 'iconRed.png';
-    marker.setIcon(Icon);
-  });
+    });
+
+    marker.addListener("mouseover", () => {
+      windowLabels.close();
+      windowLabels.setContent(marker.getTitle());
+      windowLabels.open(marker.getMap(), marker);
+      var Icon = marker.getIcon();
+      Icon.url = 'iconRed.png';
+      marker.setIcon(Icon);
+    });
 
 
-  marker.addListener('mouseout', () => {
-    var Icon = marker.getIcon();
-    Icon.url = 'icon.png';
-    marker.setIcon(Icon);
-    windowLabels.close();
-  });
-
-
-};
-
-
+    marker.addListener('mouseout', () => {
+      var Icon = marker.getIcon();
+      Icon.url = 'icon.png';
+      marker.setIcon(Icon);
+      windowLabels.close();
+    });
+  };
+}
 
 //function creates Div for the building list
 function createBuildingListDiv(building) {
@@ -343,8 +323,6 @@ closeDirections.addEventListener("click", () => {
 });
 
 
-}
-
 //function to save coordinates data into array
 function buildCoordinatesArrayFromString(MultiGeometryCoordinates){
   var finalData = [];
@@ -361,6 +339,9 @@ function buildCoordinatesArrayFromString(MultiGeometryCoordinates){
 
   return finalData;
 }
+
+// track midpoint label
+let midpointMarker;
 
 //function to calculate and display desired route
 function calculateAndDisplayRoute(directionsService, directionsDisplay, origin, destination) {
@@ -394,16 +375,11 @@ function calculateAndDisplayRoute(directionsService, directionsDisplay, origin, 
         if (i >= path.length-2) return;
         const p0 = path[i];
         const p1 = path[i+1];
-        console.log(p0, p1);
         const d = haversineDistance(p0, p1);
-        // check if we found the segment with the midpoint
+        // check if we found the segment containing the midpoint
         if (dist + d > targetDist) {
-          mlat = p1.lat - p0.lat;
-          mlng = p1.lng - p0.lng;
           const t = (targetDist - dist) / d;
           mid = {
-            // lat: p0.lat + (mlat * t),
-            // lng: p0.lng + (mlng * t),
             lat: p0.lat,
             lng: p0.lng,
           };
@@ -412,18 +388,21 @@ function calculateAndDisplayRoute(directionsService, directionsDisplay, origin, 
         dist += d;
       };
 
-      const marker = new google.maps.Marker({
+      // remove previous marker
+      if (midpointMarker) midpointMarker.setMap(null);
+      midpointMarker = new google.maps.Marker({
         position: mid,
         map: map,
         icon: {
           labelOrigin: new google.maps.Point(15,30),
-          url: "icon.png"
+          path: google.maps.SymbolPath.CIRCLE,
+          scale: 0,
         },
         label: {
           text: `${distanceObj.text}`,
-          color: "black",
+          color: "blue",
           fontWeight: "bold",
-          fontSize: "16px"
+          fontSize: "16px",
         }
       });
       
@@ -482,15 +461,12 @@ function stopAnimation() {
   cancelAnimationFrame(animation);
   var name = document.getElementById('start').value;
   building = meta.find(b => b.title === name);
-  console.log(building);
   map.moveCamera({
     center: new google.maps.LatLng(building.position.lat, building.position.lng),
     zoom: 20,
     tilt: 40
   });
 }
-
-let mouseDown = false;
 
 document.addEventListener("mousedown", () => {
   mouseDown = true;
@@ -499,8 +475,6 @@ document.addEventListener("mouseup", () => {
   mouseDown = false;
 })
 
-let heading = 0;
-let tilt = 60;
 function animate() {
   if (map && !mouseDown) {
     heading += 0.2;

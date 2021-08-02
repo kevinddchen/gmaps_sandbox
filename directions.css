@@ -17,6 +17,12 @@
   transform: translateX(-100%);
 }
 
+#direction-steps {
+  height: 100%;
+  overflow-y: auto;
+  margin: 20px 0;
+}
+
 #directions-button-container {
   width: 100%;
   margin-top: auto;
