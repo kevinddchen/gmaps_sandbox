@@ -129,10 +129,10 @@ function initMap() {
     var coordinates = buildCoordinatesArrayFromString(coorData[i]);
     const Polygon = new google.maps.Polygon({
       paths: coordinates,
-      strokeColor: '#FF3158',
+      strokeColor: '#ff3158',
       strokeOpacity: 0.8,
       strokeWeight: 3,
-      fillColor: '#FF3158',
+      fillColor: '#ff3158',
       fillOpacity: 0.3,
       clickable: false
     })
@@ -250,15 +250,11 @@ function createBuildingListDiv(building) {
   };
 
   elt.onmouseover = () => {
-    let dirBtn = document.getElementById(building.sid);
-    dirBtn.style.display = "block";
-
+    dir.style.display = "block";
   };
 
   elt.onmouseout = () => {
-    let dirBtn = document.getElementById(building.sid);
-    dirBtn.style.display = "none";
-
+    dir.style.display = "none";
   };
   buildingListContainer.appendChild(elt);
 }
@@ -404,7 +400,6 @@ function renderBuildingsList() {
       item.style.display = "none";
       return;
     }
-    item.style.display = "block";
     item.classList.remove("selected");
     if (item.dataset.value === selectedBuilding) {
       item.classList.add("selected");
