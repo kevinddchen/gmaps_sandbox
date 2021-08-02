@@ -236,7 +236,6 @@ function createBuildingListDiv(building) {
   elt.dataset.value = building.sid;
   dir.setAttribute("id", building.sid);
   dir.classList.add("navigation");
-  dir.innerHTML = "Directions >"; 
   dir.addEventListener("click", () => {
     mainMenu.classList.add("hide");
     directionsMenu.classList.remove("hide");
@@ -418,6 +417,7 @@ function calculateAndDisplayRoute(directionsService, directionsDisplay, origin, 
  * @param {{lat:number,lng:number}} p1 Point 1 (end)
  * @returns Distance between the points in meters
  */
+/*
 function haversineDistance(p0, p1) {
   const [lat0, lng0] = [p0.lat, p0.lng];
   const [lat1, lng1] = [p1.lat, p1.lng];
@@ -436,6 +436,7 @@ function haversineDistance(p0, p1) {
 
   return d;
 }
+*/
 
 let mouseDown = false;
 
