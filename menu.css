@@ -65,6 +65,8 @@
   border-bottom: 1px solid #d9d9d9;
   cursor: pointer;
   display: flex;
+  position: relative;
+  padding-right: 28px;
 
   transition: border 200ms ease;
 }
@@ -80,13 +82,21 @@
 }
 
 .navigation{
-  background-color: transparent;
+  background-color: black;
+  position: absolute;
   border: none;
   outline: none;
   cursor: pointer;
   display: none;
-  margin-left: auto;
-  font-size: 16px;
-  color: #ff3158;
+  margin-right: 0;
+  right: 0;
+  top: 0;
+  bottom: 0;
+  height: 100%;
+  width: 28px;
   white-space: nowrap;
+  background: url("./Directions.png");
+  background-repeat: no-repeat;
+  background-size: contain;
+  background-position: center;
 }

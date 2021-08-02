@@ -171,9 +171,6 @@ function initMap() {
     Polygon.setMap(map) 
   }
 
-  var buildingA;
-  var buildingB;
-
   // create markers using metadata
   var labelsArray = [];
   for (let i=0; i < meta.length; i++) {
@@ -193,8 +190,9 @@ function initMap() {
       title: meta[i].title
     });
 
+    const location = meta[i].sid;
+
     marker.addListener("click", () => {
-      const location = meta[i].position;
       //calculateAndDisplayRoute(directionsService, directionsRenderer, { lat: 42.376468639837235, lng: -71.11823289325775 }, location);
       infoWindow.close();
       infoWindow.setContent(makeContent(meta[i]));
@@ -215,6 +213,7 @@ function initMap() {
       var Icon = marker.getIcon();
       Icon.url = 'iconRed.png';
       marker.setIcon(Icon);
+      dirIcon = document.getElementById(location).style.display="block";
     });
 
 
@@ -223,6 +222,7 @@ function initMap() {
       Icon.url = 'icon.png';
       marker.setIcon(Icon);
       windowLabels.close();
+      dirIcon = document.getElementById(location).style.display="none";
     });
   };
 }
@@ -236,7 +236,6 @@ function createBuildingListDiv(building) {
   elt.dataset.value = building.sid;
   dir.setAttribute("id", building.sid);
   dir.classList.add("navigation");
-  dir.innerHTML = "Directions >"; 
   dir.addEventListener("click", () => {
     mainMenu.classList.add("hide");
     directionsMenu.classList.remove("hide");
@@ -280,6 +279,7 @@ endMenu.addEventListener('change', (event) => {
   if (directionsDisplay != null) {
     directionsDisplay.setMap(null);
   }
+  cancelAnimationFrame(animation);
   stopAnimation();
   calculateAndDisplayRoute(directionsService, directionsDisplay, buildingA.position, buildingB.position);
   
@@ -467,23 +467,6 @@ function stopAnimation() {
     tilt: 40
   });
 }
-
-document.addEventListener("mousedown", () => {
-  mouseDown = true;
-});
-document.addEventListener("mouseup", () => {
-  mouseDown = false;
-})
-
-function animate() {
-  if (map && !mouseDown) {
-    heading += 0.2;
-    map.moveCamera({ heading, tilt });
-  }
-
-  !mouseDown && requestAnimationFrame(animate);
-}
-
 
 function renderBuildingsList() {
   Array.from(buildingListContainer.children).sort((a, b) => {
