@@ -388,6 +388,24 @@ function calculateAndDisplayRoute(directionsService, directionsDisplay, origin, 
         dist += d;
       };
 
+      path.forEach((p, i) => {
+        if (i % 3 === 0 || i === path.length) {
+          setTimeout(() => {
+            const pano = new google.maps.StreetViewPanorama(
+              document.getElementById("map"),
+              {
+                position: new google.maps.LatLng(p.lat, p.lng),
+                pov: {
+                  heading: 0,
+                  pitch: 0,
+                }
+              }
+            );
+          }, i*1500);
+        }
+      });
+
+
       // remove previous marker
       if (midpointMarker) midpointMarker.setMap(null);
       midpointMarker = new google.maps.Marker({
@@ -418,6 +436,7 @@ function calculateAndDisplayRoute(directionsService, directionsDisplay, origin, 
  * @param {{lat:number,lng:number}} p1 Point 1 (end)
  * @returns Distance between the points in meters
  */
+
 function haversineDistance(p0, p1) {
   const [lat0, lng0] = [p0.lat, p0.lng];
   const [lat1, lng1] = [p1.lat, p1.lng];
