@@ -1,8 +1,7 @@
 #directions {
+  position: absolute;
   height: 100%;
   width: 100%;
-
-  position: absolute;
 
   background-color: #e5e5e5;
   box-sizing: border-box;
@@ -10,7 +9,6 @@
 
   display: flex;
   flex-direction: column;
-  gap: 24px;
 
   transition: transform 250ms ease;
 }
@@ -19,12 +17,18 @@
   transform: translateX(-100%);
 }
 
-#directions #close-directions-button {
-  position: absolute;
-  bottom: 20px;
+#directions-button-container {
+  width: 100%;
+  margin-top: auto;
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
 }
 
-.direction-step-div {
-  padding: 6px;
-  background-color: white;
+#close-directions-button {
+  text-align: center;
+}
+
+#go-back-button {
+  text-align: center;
 }

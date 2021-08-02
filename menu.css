@@ -2,6 +2,7 @@
 #menu {
   position: absolute;
   height: 100%;
+  width: 100%;
 
   background-color: #e5e5e5;
   box-sizing: border-box;
@@ -63,6 +64,7 @@
   padding: 8px 0 4px;
   border-bottom: 1px solid #d9d9d9;
   cursor: pointer;
+  display: flex;
 
   transition: border 200ms ease;
 }
@@ -70,9 +72,21 @@
   padding-top: 20px
 }
 .building-list-item:hover {
-  border-color: #FF3158;
+  border-color: #ff3158;
 }
 .building-list-item.selected {
-  color: #FF3158;
-  border-color: #FF3158;
+  color: #ff3158;
+  border-color: #ff3158;
+}
+
+.navigation{
+  background-color: transparent;
+  border: none;
+  outline: none;
+  cursor: pointer;
+  display: none;
+  margin-left: auto;
+  font-size: 16px;
+  color: #ff3158;
+  white-space: nowrap;
 }

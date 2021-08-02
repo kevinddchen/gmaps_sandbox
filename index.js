@@ -5,6 +5,10 @@ let selectedBuilding = '';
 let displayedBuildings = [];
 const buildingListContainer = document.getElementById("building-list-container");
 
+//global variables for animations
+let heading = 0;
+let tilt = 60;
+
 //directions service set up
 var map;
 var directionsDisplay;
@@ -21,6 +25,9 @@ closeDirections.addEventListener("click", () => {
 });
 
 let routePoly = null;
+
+let mainMenu = document.getElementById("menu");
+let directionsMenu = document.getElementById("directions");
 
 // Initialize and add the map
 function initMap() {
@@ -128,6 +135,10 @@ function initMap() {
     zIndex: 1,
   });
 
+  const windowLabels = new google.maps.InfoWindow({
+    zIndex: 1,
+  });
+
   //array to store markers
   let markerArray = []
   //console.log(meta);
@@ -144,20 +155,44 @@ function initMap() {
     var coordinates = buildCoordinatesArrayFromString(coorData[i]);
     const Polygon = new google.maps.Polygon({
       paths: coordinates,
-      strokeColor: '#FF3158',
+      strokeColor: '#ff3158',
       strokeOpacity: 0.8,
       strokeWeight: 3,
-      fillColor: '#FF3158',
+      fillColor: '#ff3158',
       fillOpacity: 0.3,
       clickable: false
     })
+    
     Polygon.setMap(map)
+  }
+
+  //create highlighted area for buildings using coordinates
+  for(let i = 0; i<buildings.length; i++){
+    var coordinates = buildCoordinatesArrayFromString(buildings[i]);
+    const Polygon = new google.maps.Polygon({
+      paths: coordinates,
+      strokeColor: '#ffffed',
+      strokeOpacity: 0.8,
+      strokeWeight: 1,
+      fillColor: '#ffffed',
+      fillOpacity: 0,
+      visible: true
+    });
+    Polygon.addListener("mouseover",() => {
+      Polygon.setOptions({strokeOpacity: 0.8, strokeWeight: 3});
+    });
+
+    Polygon.addListener("mouseout",() => {
+      Polygon.setOptions({strokeOpacity: 0.8, strokeWeight: 1});
+    });
+    Polygon.setMap(map) 
   }
 
   var buildingA;
   var buildingB;
 
 // create markers using metadata
+var labelsArray = [];
 for (let i=0; i < meta.length; i++) {
   const marker = new google.maps.Marker({
     position: meta[i].position,
@@ -171,8 +206,10 @@ for (let i=0; i < meta.length; i++) {
       color: "black",
       fontWeight: "bold",
       fontSize: "16px"
-    }
+    },
+    title: meta[i].title
   });
+
   marker.addListener("click", () => {
     const location = meta[i].position;
     //calculateAndDisplayRoute(directionsService, directionsRenderer, { lat: 42.376468639837235, lng: -71.11823289325775 }, location);
@@ -184,34 +221,47 @@ for (let i=0; i < meta.length; i++) {
       zoom: 18,
     });
     markerArray.push(marker)
+    console.log(labelsArray);
+
   });
 
-  marker.addListener('mouseover', () => {
+  marker.addListener("mouseover", () => {
+    windowLabels.close();
+    windowLabels.setContent(marker.getTitle());
+    windowLabels.open(marker.getMap(), marker);
     var Icon = marker.getIcon();
     Icon.url = 'iconRed.png';
     marker.setIcon(Icon);
-    var label = marker.getLabel();
-    label.text = meta[i].title;
-    marker.setLabel(label);
-    
   });
+
 
   marker.addListener('mouseout', () => {
     var Icon = marker.getIcon();
     Icon.url = 'icon.png';
     marker.setIcon(Icon);
-    var label = marker.getLabel();
-    label.text = ' ';
-    marker.setLabel(label);
+    windowLabels.close();
   });
+
+
 };
+
+
 
 //function creates Div for the building list
 function createBuildingListDiv(building) {
   const elt = document.createElement("div");
+  const dir = document.createElement("button");
   elt.classList.add("building-list-item");
   elt.textContent = building.title;
   elt.dataset.value = building.sid;
+  dir.setAttribute("id", building.sid);
+  dir.classList.add("navigation");
+  dir.innerHTML = "Directions >"; 
+  dir.addEventListener("click", () => {
+    mainMenu.classList.add("hide");
+    directionsMenu.classList.remove("hide");
+  });
+  elt.appendChild(dir);
   elt.onclick = () => {
     selectedBuilding = elt.dataset.value;
     renderBuildingsList();
@@ -223,6 +273,14 @@ function createBuildingListDiv(building) {
       zoom: 20,
       tilt: 40
     });
+  };
+
+  elt.onmouseover = () => {
+    dir.style.display = "block";
+  };
+
+  elt.onmouseout = () => {
+    dir.style.display = "none";
   };
   buildingListContainer.appendChild(elt);
 }
@@ -239,7 +297,12 @@ const endMenu = document.getElementById('end');
 endMenu.addEventListener('change', (event) => {
   const value = event.currentTarget.value;
   buildingB = meta.find(b => b.title === value);
+  if (directionsDisplay != null) {
+    directionsDisplay.setMap(null);
+  }
+  stopAnimation();
   calculateAndDisplayRoute(directionsService, directionsDisplay, buildingA.position, buildingB.position);
+  
 });
 
 //function creates Select for the directions
@@ -252,18 +315,33 @@ function createBuildingListSelect(building) {
 }
 
 //click event to clean current route
-let btn = document.getElementById('clean');
+let btn = document.getElementById('close-directions-button');
 btn.addEventListener("click", function() {
-  // if (directionsDisplay != null) {
-  //   directionsDisplay.setMap(null);
-  // }
-  // document.getElementById('end').value = " ";
-  // document.getElementById('start').value = " ";
-
-  mainMenu.classList.add("hide");
-  directionsMenu.classList.remove("hide");
-
+  if (directionsDisplay != null) {
+    directionsDisplay.setMap(null);
+  }
+  stopAnimation();
+  document.getElementById('end').value = " ";
 });
+
+//click event to go back to main side menu
+let closeDirections = document.getElementById("go-back-button");
+closeDirections.addEventListener("click", () => {
+  directionsMenu.classList.add("hide");
+  mainMenu.classList.remove("hide");
+  if (directionsDisplay != null) {
+    directionsDisplay.setMap(null);
+  }
+  stopAnimation();
+  document.getElementById('end').value = " ";
+  map.moveCamera({
+    center: {lat: 42.37429224178242, lng: -71.11628459241092 },
+    zoom: 15,
+    tilt: 0,
+    heading: 0
+  });
+});
+
 
 }
 
@@ -354,20 +432,6 @@ function calculateAndDisplayRoute(directionsService, directionsDisplay, origin, 
     requestAnimationFrame(animate);
 }
 
-// Thanks to Mike William's demo http://www.geocodezip.com/v3_GoogleEx_directions-midpoint.html
-function polylineFromRoute(response) {
-  const legs = response.routes[0].legs;
-  routePoly.setPath([]);
-  legs.forEach(leg => {
-    leg.steps.forEach(step => {
-      step.path.forEach(seg => {
-        routePoly.getPath().push(seg);
-      });
-    });
-  });
-  //routePoly.setMap(map);
-}
-
 /**
  * Copied from https://www.movable-type.co.uk/scripts/latlong.html
  * Calculates the distance between two lat-lng coordinates.
@@ -403,6 +467,38 @@ document.addEventListener("mouseup", () => {
   mouseDown = false;
 })
 
+var animation;
+function animate() {
+  
+  if (map && !mouseDown) {
+    heading += 0.2;
+    map.moveCamera({ heading, tilt });
+  }
+
+  animation = requestAnimationFrame(animate);
+}
+
+function stopAnimation() {
+  cancelAnimationFrame(animation);
+  var name = document.getElementById('start').value;
+  building = meta.find(b => b.title === name);
+  console.log(building);
+  map.moveCamera({
+    center: new google.maps.LatLng(building.position.lat, building.position.lng),
+    zoom: 20,
+    tilt: 40
+  });
+}
+
+let mouseDown = false;
+
+document.addEventListener("mousedown", () => {
+  mouseDown = true;
+});
+document.addEventListener("mouseup", () => {
+  mouseDown = false;
+})
+
 let heading = 0;
 let tilt = 60;
 function animate() {
@@ -416,14 +512,16 @@ function animate() {
 
 
 function renderBuildingsList() {
-  Array.from(buildingListContainer.children).forEach(item => {
+  Array.from(buildingListContainer.children).sort((a, b) => {
+    return a.title.localeCompare(b.title);
+  })
+  .forEach(item => {
     const val = item.dataset.value;
     // check if building should be hidden
     if (!displayedBuildings.find(b => b.sid === val)) {
       item.style.display = "none";
       return;
     }
-    item.style.display = "block";
     item.classList.remove("selected");
     if (item.dataset.value === selectedBuilding) {
       item.classList.add("selected");

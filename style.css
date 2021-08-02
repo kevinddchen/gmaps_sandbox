@@ -1,6 +1,6 @@
 /* Always set the map height explicitly to define the size of the div
-       * element that contains the map. */      
-#map {
+  * element that contains the map. */      
+  #map {
   height: 100%;
   width: 100%;
 }
@@ -56,16 +56,16 @@ main {
   transform: rotate(-45deg);
 }
 .ui-left:hover {
-  box-shadow: -2px 2px #FF3158;
+  box-shadow: -2px 2px #ff3158;
 }
 .ui-right:hover {
-  box-shadow: -2px 2px #FF3158;
+  box-shadow: -2px 2px #ff3158;
 }
 .ui-Up:hover {
-  box-shadow: -2px 2px #FF3158;
+  box-shadow: -2px 2px #ff3158;
 }
 .ui-Down:hover {
-  box-shadow: -2px 2px #FF3158;
+  box-shadow: -2px 2px #ff3158;
 }
 
 /* class applies to select element itself, not a wrapper element */
@@ -100,7 +100,7 @@ main {
 }
 /* Hover style */
 .select-css:hover {
-  border-color: #FF3158;
+  border-color: #ff3158;
 }
 /* Focus style */
 .select-css:focus {
@@ -136,16 +136,11 @@ main {
 
 .button {
   background-color: #ffffff; 
-  border: none;
   color: black;
   padding: 10px 24px;
   text-align: center;
   text-decoration: none;
-  display: inline-block;
   font-size: 16px;
   border-radius: 12px;
-  border: 1px solid #FF3158;
-  margin-top: 25px;
-  position:relative;
-  left: 25%;
+  border: 1px solid #ff3158;
 }

@@ -20,23 +20,20 @@
           <div id="building-list-container">
             <!-- Add options as <div>s here with JS -->
           </div>
-          <div id="floating-panel">
-            <button type = "submit" id='clean' class = 'button'> Navigation </button> 
-          </div>
         </div>
         <div id="directions" class="hide">
-          <div id="floating-panel">
-            <strong>From: </strong>
-            <form>
-              <input type="text" class="select-css" id="start" READONLY/>
-            </form>
-            <strong>To: </strong>
-            <select id="end" class="select-css">
-              <!-- Add options as <option>s here with JS -->
-            </select>
-            <div id="direction-steps"></div>
-            <button type = "submit" id='close-directions-button' class = 'button'> Clean Route </button> 
-          </div>
+          <strong>From: </strong>
+          <form>
+            <input type="text" class="select-css" id="start" READONLY/>
+          </form>
+          <strong>To: </strong>
+          <select id="end" class="select-css">
+            <!-- Add options as <option>s here with JS -->
+          </select>
+          <div id="directions-button-container">
+            <button type = "submit" id='close-directions-button' class='button'> New Route </button>
+            <button type = "submit" id='go-back-button' class='button'> Go Back </button>
+            </div>
         </div>
       </div>
       <!--The div element for the map -->
