@@ -388,20 +388,21 @@ function calculateAndDisplayRoute(directionsService, directionsDisplay, origin, 
         dist += d;
       };
 
+      const pano = new google.maps.StreetViewPanorama(
+        document.getElementById("map"),
+        {
+          position: new google.maps.LatLng(path[0].lat, path[0].lng),
+          pov: {
+            heading: 0,
+            pitch: 0,
+          }
+        }
+      );
       path.forEach((p, i) => {
         if (i % 3 === 0 || i === path.length) {
           setTimeout(() => {
-            const pano = new google.maps.StreetViewPanorama(
-              document.getElementById("map"),
-              {
-                position: new google.maps.LatLng(p.lat, p.lng),
-                pov: {
-                  heading: 0,
-                  pitch: 0,
-                }
-              }
-            );
-          }, i*1500);
+            pano.setPosition(new google.maps.LatLng(p.lat, p.lng));
+          }, i*500);
         }
       });
 
