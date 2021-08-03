@@ -69,15 +69,15 @@
     <div id="geocoding-error">test geocoding</div>
     <div id="directions-error">test directions</div>
     <div id="selection-box">
+      <span onclick="document.getElementById('selection-box').style.display='none'" class="close-button topright">&times;</span>
       <p style="margin-top: 0;">
-        Choose a language and/or region to update the map.</p>
+        Choose a language to update the map.</p>
       <div id="selection-div">
         <div>
           <label class="select-label" for="language">Language</label>
           <select id="language"></select>
         </div>
         <div>
-          <label class="select-label" for="region">Region</label>
           <select id="region"></select>
         </div>
       </div>

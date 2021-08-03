@@ -40,12 +40,14 @@ function initMap() {
 
   //localization service set up
   control = document.getElementById('selection-box');
+  let region = document.getElementById('region');
   map.controls[google.maps.ControlPosition.TOP_LEFT].push(control);
   // Due to the time between when the map is loaded and the control div is
   // added to the page it creates a jarring effect. This is a best effort
   // to minimize that.
   google.maps.event.addListenerOnce(map, 'tilesloaded', function(e) {
     control.style.display = 'none';
+    region.style.display = 'none';
   });
   showDirections();
   
