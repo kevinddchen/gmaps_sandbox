@@ -15,13 +15,17 @@ var directionsDisplay;
 var directionsService;
 var distanceService;
 
+//global variable for language
+let control;
+
+
 let mainMenu = document.getElementById("menu");
 let directionsMenu = document.getElementById("directions");
 
 // Initialize and add the map
 function initMap() {
   map = new google.maps.Map(document.getElementById("map"), {
-    zoom: 15, // furthest zoom that can see buildings
+    zoom: 16, // furthest zoom that can see buildings
     center: { lat: 42.37429224178242, lng: -71.11628459241092 }, // arbitrary start location
     mapId: 'b536490391ffa6c2',
     restriction: {
@@ -33,6 +37,19 @@ function initMap() {
       },
     },
   });
+
+  //localization service set up
+  control = document.getElementById('selection-box');
+  let region = document.getElementById('region');
+  map.controls[google.maps.ControlPosition.TOP_LEFT].push(control);
+  // Due to the time between when the map is loaded and the control div is
+  // added to the page it creates a jarring effect. This is a best effort
+  // to minimize that.
+  google.maps.event.addListenerOnce(map, 'tilesloaded', function(e) {
+    control.style.display = 'none';
+    region.style.display = 'none';
+  });
+  showDirections();
   
   //directions service set up
   directionsDisplay = new google.maps.DirectionsRenderer({
@@ -300,6 +317,7 @@ btn.addEventListener("click", function() {
   if (directionsDisplay != null) {
     directionsDisplay.setMap(null);
   }
+  if (midpointMarker) midpointMarker.setMap(null);
   stopAnimation();
   document.getElementById('end').value = " ";
 });
@@ -312,6 +330,7 @@ closeDirections.addEventListener("click", () => {
   if (directionsDisplay != null) {
     directionsDisplay.setMap(null);
   }
+  if (midpointMarker) midpointMarker.setMap(null);
   stopAnimation();
   document.getElementById('end').value = " ";
   map.moveCamera({
@@ -320,6 +339,12 @@ closeDirections.addEventListener("click", () => {
     tilt: 0,
     heading: 0
   });
+});
+
+//click event to pop up language window
+let language = document.getElementById('Language');
+language.addEventListener("click", () => {
+  control.style.display = 'block';
 });
 
 
