@@ -1,12 +1,6 @@
 /* Top-level container for the menu */
 #menu {
-  position: absolute;
-  height: 100%;
-  width: 100%;
-
-  background-color: #e5e5e5;
   box-sizing: border-box;
-  padding: 20px;
 
   display: flex;
   flex-direction: column;
@@ -14,6 +8,9 @@
 
   /* Width of navigation button */
   --navigation-width: 28px;
+}
+#menu.hide {
+  transform: translateX(-100%);
 }
 
 /* Search bar style */
