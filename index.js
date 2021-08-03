@@ -476,8 +476,9 @@ function renderBuildingsList() {
     const val = item.dataset.value;
     // check if building should be hidden
     if (!displayedBuildings.find(b => b.sid === val)) {
-      item.style.display = "none";
-      return;
+      item.classList.add("hide");
+    } else {
+      item.classList.remove("hide");
     }
     item.classList.remove("selected");
     if (item.dataset.value === selectedBuilding) {

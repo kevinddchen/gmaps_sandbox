@@ -1,6 +1,6 @@
 /* Top-level container for the menu */
 #menu {
-  box-sizing: border-box;
+  width: 100%;
 
   display: flex;
   flex-direction: column;
@@ -69,6 +69,9 @@
   padding-right: var(--navigation-width);
 
   transition: border 200ms ease;
+}
+.building-list-item.hide {
+  display: none;
 }
 .building-list-item:not(:first-child) {
   padding-top: 20px

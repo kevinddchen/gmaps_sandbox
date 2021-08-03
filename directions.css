@@ -6,7 +6,8 @@
 }
 
 #directions.hide {
-  transform: translateX(100%);
+  /* Hack 110% instead of 100% because there was 1-pixel overlap */
+  transform: translateX(110%);
 }
 
 #direction-steps {
