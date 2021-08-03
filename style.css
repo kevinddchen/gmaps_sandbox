@@ -144,3 +144,52 @@ main {
   border-radius: 12px;
   border: 1px solid #ff3158;
 }
+
+#geocoding-error,
+ #directions-error {
+   color: red;
+   display: none;
+   font-size: 1.5em;
+   font-weight: 700;
+   height: 2em;
+   padding: 1em;
+   width: 100%;
+ }
+ #directions-error {
+   text-align: right;
+ }
+ #region {
+   margin-top: .5em;
+ }
+ select {
+   font-size: 1em;
+   width: 220px;
+ }
+ #selection-div {
+   display: inline;
+ }
+ #selection-box {
+   background-color: white;
+   background-clip: padding-box;
+   box-shadow: rgba(0, 0, 0, 0.298039) 0px 1px 4px -1px;
+   border-radius: 2.5px;
+   display: none;
+   font-size: 1.1em;
+   left: 0px;
+   margin: 1em;
+   max-height: 200px;
+   max-width: 390px;
+   overflow: auto;
+   padding: .8em;
+   position: absolute;
+   top: 0px;
+   -webkit-user-select: none;
+   -webkit-background-clip: padding-box;
+   z-index: 999;
+ }
+ .select-label {
+   display: inline-block;
+   color: #333;
+   font-size: 1em;
+   width: 60px;
+ }

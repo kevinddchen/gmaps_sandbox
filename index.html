@@ -9,7 +9,7 @@
     <script src="./meta.js"></script>
     <script src="https://polyfill.io/v3/polyfill.min.js?features=default"></script>
   </head>
-  <body>
+  <body onload=initialize()>
     <main>
       <div id="ui-container">
         <div id="menu">
@@ -20,6 +20,7 @@
           <div id="building-list-container">
             <!-- Add options as <div>s here with JS -->
           </div>
+          <button type = "submit" id='Language' class='button'> Language </button>
         </div>
         <div id="directions" class="hide">
           <strong>From: </strong>
@@ -42,10 +43,46 @@
     </main>
     <script src="./index.js"></script>
     <script src="./localization.js"></script>
+    <script>
+      // Build the JS API request node.
+      var script = document.createElement('script');
+      var query = '?key=AIzaSyAwRBYK_6qUnFrtWyb42ogf5L9I6-R6LvA&v=beta&callback=initMap';
+      var langCode = getUrlParameter('language');
+      // Try to be generous with accepting upper/lower case.
+      if (langCode.length === 2) {
+        langCode = langCode.toLowerCase();
+      }
+      if (langCode) {
+        query += '&language=' + langCode;
+      }
+      var regionCode = getUrlParameter('region').toUpperCase();
+      if (regionCode) {
+        query += '&region=' + regionCode;
+      }
+      script.src = 'https://maps.googleapis.com/maps/api/js' + query;
+      script.setAttribute('async', '');
+      script.setAttribute('defer', '');
+      document.head.appendChild(script);
+    </script>
     <!-- Async script executes immediately and must be after any DOM elements used in callback. -->
     <!-- Kevin's personal PI key -- please do not distribute! -->
-    <script
-      src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAwRBYK_6qUnFrtWyb42ogf5L9I6-R6LvA&v=beta&callback=initMap" async>
-    </script>
+    <div id="geocoding-error">test geocoding</div>
+    <div id="directions-error">test directions</div>
+    <div id="selection-box">
+      <p style="margin-top: 0;">
+        Choose a language and/or region to update the map.</p>
+      <div id="selection-div">
+        <div>
+          <label class="select-label" for="language">Language</label>
+          <select id="language"></select>
+        </div>
+        <div>
+          <label class="select-label" for="region">Region</label>
+          <select id="region"></select>
+        </div>
+      </div>
+    </div>
+    <div id="map-canvas"></div>
+    <div id="directions-box">Drag directions and click the map to geocode.</div>
   </body>
 </html>
