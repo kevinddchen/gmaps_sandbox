@@ -52,7 +52,6 @@
 #building-list-container {
   width: 100%;
   min-height: 200px;
-  max-height: 80%;
   border-radius: 8px;
   background-color: #ffffff;
   overflow: auto;
