@@ -10,7 +10,8 @@
   --navigation-width: 28px;
 }
 #menu.hide {
-  transform: translateX(-100%);
+  /* Hack 110% instead of 100% because there was 1-pixel overlap */
+  transform: translateX(-110%);
 }
 
 /* Search bar style */
@@ -54,18 +55,13 @@
   min-height: 200px;
   border-radius: 8px;
   background-color: #ffffff;
-  overflow: auto;
-
-  box-sizing: border-box;
-  padding: 12px;
+  overflow-y: auto;
 }
 .building-list-item {
-  padding: 8px 0 4px;
-  border-bottom: 1px solid #d9d9d9;
+  padding: 14px var(--navigation-width) 10px 16px;
   cursor: pointer;
   display: flex;
   position: relative;
-  padding-right: var(--navigation-width);
 
   transition: border 200ms ease;
 }
@@ -73,14 +69,13 @@
   display: none;
 }
 .building-list-item:not(:first-child) {
-  padding-top: 20px
+  border-top: 1px solid #F5F4F3;
 }
 .building-list-item:hover {
-  border-color: #ff3158;
+  background-color: #F5F4F3;
 }
 .building-list-item.selected {
   color: #ff3158;
-  border-color: #ff3158;
 }
 
 .navigation{
