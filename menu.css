@@ -11,6 +11,9 @@
   display: flex;
   flex-direction: column;
   gap: 24px;
+
+  /* Width of navigation button */
+  --navigation-width: 28px;
 }
 
 /* Search bar style */
@@ -66,7 +69,7 @@
   cursor: pointer;
   display: flex;
   position: relative;
-  padding-right: 28px;
+  padding-right: var(--navigation-width);
 
   transition: border 200ms ease;
 }
@@ -93,7 +96,7 @@
   top: 0;
   bottom: 0;
   height: 100%;
-  width: 28px;
+  width: var(--navigation-width);
   white-space: nowrap;
   background: url("./directions.png");
   background-repeat: no-repeat;
