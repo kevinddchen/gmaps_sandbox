@@ -24,6 +24,13 @@ let control;
 let mainMenu = document.getElementById("menu");
 let directionsMenu = document.getElementById("directions");
 
+
+const endSelect = document.getElementById("end");
+endSelect.addEventListener("change", (event) => updateRoute(event.currentTarget.value, false));
+const startSelect = document.getElementById("start");
+startSelect.addEventListener("change", (event) => updateRoute(event.currentTarget.value, true));
+
+
 // Initialize and add the map
 function initMap() {
   map = new google.maps.Map(document.getElementById("map"), {
@@ -253,13 +260,6 @@ document.getElementById("searchbar-input").addEventListener("input", (ev) => {
   renderBuildingsList();
 });
 
-
-const endSelect = document.getElementById("end");
-endSelect.addEventListener("change", (event) => updateRoute(event.currentTarget.value, false));
-
-const startSelect = document.getElementById("start");
-startSelect.addEventListener("change", (event) => updateRoute(event.currentTarget.value, true));
-
 function updateRoute(value, isStart) {
   if (isStart) {
     buildingA = meta.find(b => b.title === value);
@@ -321,6 +321,9 @@ function createBuildingListSelect(building) {
   startOpt.value = building.title;
   startOpt.text = building.title;
   startSelect.add(startOpt, null);
+
+  endSelect.value = null;
+  startSelect.value = null;
 }
 
 //click event to clear current route
@@ -332,7 +335,10 @@ btn.addEventListener("click", function() {
   }
   if (midpointMarker) midpointMarker.setMap(null);
   stopAnimation();
-  document.getElementById("end").value = " ";
+  endSelect.value = null;
+  startSelect.value = null;
+  buildingA = null;
+  buildingB = null;
 });
 
 //click event to go back to main side menu
