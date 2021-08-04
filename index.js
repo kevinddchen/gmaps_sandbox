@@ -57,7 +57,7 @@ function initMap() {
   directionsDisplay = new google.maps.DirectionsRenderer({
     polylineOptions: new google.maps.Polyline({
       // map: map,
-      strokeColor: "blue",
+      strokeColor: "#385DFF",
       strokeWeight: 4,
       strokeOpacity: 0.6,
     }),
@@ -432,15 +432,15 @@ function calculateAndDisplayRoute(directionsService, directionsDisplay, origin, 
         position: mid,
         map: map,
         icon: {
-          labelOrigin: new google.maps.Point(15,30),
+          labelOrigin: new google.maps.Point(10,10),
           path: google.maps.SymbolPath.CIRCLE,
-          scale: 0,
+          scale: 1,
+          fillColor: "transparent",
+          strokeColor: "transparent",
         },
         label: {
+          className: "midpoint-label",
           text: `${distanceObj.text}`,
-          color: "blue",
-          fontWeight: "bold",
-          fontSize: "16px",
         }
       });
       

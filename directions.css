@@ -1,3 +1,11 @@
+.midpoint-label {
+  font-size: 14px;
+  color: #fff !important;
+  background-color: #385dff;
+  padding: 4px;
+  border-radius: 4px;
+}
+
 #directions {
   background-color: #fff;
   box-sizing: border-box;
