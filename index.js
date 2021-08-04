@@ -4,6 +4,8 @@
 let selectedBuilding = "";
 let displayedBuildings = [];
 const buildingListContainer = document.getElementById("building-list-container");
+let buildingA;
+let buildingB;
 
 //global variables for animations
 let heading = 0;
@@ -253,17 +255,20 @@ document.getElementById("searchbar-input").addEventListener("input", (ev) => {
 
 
 const endSelect = document.getElementById("end");
-endSelect.addEventListener("change", (event) => updateRoute(event.currentTarget.value));
+endSelect.addEventListener("change", (event) => updateRoute(event.currentTarget.value, false));
 
 const startSelect = document.getElementById("start");
-startSelect.addEventListener("change", (event) => updateRoute(event.currentTarget.value));
+startSelect.addEventListener("change", (event) => updateRoute(event.currentTarget.value, true));
 
-function updateRoute(value) {
-  buildingB = meta.find(b => b.title === value);
+function updateRoute(value, isStart) {
+  if (isStart) {
+    buildingA = meta.find(b => b.title === value);
+  } else {
+    buildingB = meta.find(b => b.title === value);
+  }
   if (directionsDisplay != null) {
     directionsDisplay.setMap(null);
   }
-  cancelAnimationFrame(animation);
   stopAnimation();
   calculateAndDisplayRoute(directionsService, directionsDisplay, buildingA.position, buildingB.position);
 }
@@ -387,7 +392,7 @@ function calculateAndDisplayRoute(directionsService, directionsDisplay, origin, 
       // Note that Javascript allows us to access the constant
       // using square brackets and a string value as its
       // "property."
-      travelMode: "DRIVING",
+      travelMode: "WALKING",
     })
     .then((response) => {
       directionsDisplay.setDirections(response);
