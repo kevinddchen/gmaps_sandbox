@@ -54,8 +54,8 @@ main {
 }
 #powered-by-matterport {
   height: 17px;
+  margin-top: 26px;
   margin-bottom: 20px;
-  margin-top: 20px;
 }
 
 /* Container for building list and direction menus */
