@@ -38,10 +38,9 @@ main {
   margin: 40px 0 30px;
 }
 #menu-button-container {
-  margin-bottom: 60px;
   margin-top: auto;
   width: 100%;
-
+  
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -52,6 +51,11 @@ main {
 }
 #admissions-button {
   padding: 14px;
+}
+#powered-by-matterport {
+  height: 17px;
+  margin-bottom: 20px;
+  margin-top: 20px;
 }
 
 /* Container for building list and direction menus */
