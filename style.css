@@ -54,9 +54,10 @@ main {
   padding: 14px;
 }
 
+/* Container for building list and direction menus */
 #menu-container {
   position: relative;
-  height: 440px;
+  height: 470px;
   width: 100%;
   overflow: hidden;
 }
@@ -64,6 +65,8 @@ main {
 .menu-section {
   position: absolute;
   height: 100%;
+  display: flex;
+  flex-direction: column;
 
   transition: transform 250ms ease;
 }

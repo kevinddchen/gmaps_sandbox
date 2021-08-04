@@ -311,11 +311,12 @@ function createBuildingListSelect(building) {
   select.add(opt, null);
 }
 
-//click event to clean current route
+//click event to clear current route
 let btn = document.getElementById('close-directions-button');
 btn.addEventListener("click", function() {
   if (directionsDisplay != null) {
     directionsDisplay.setMap(null);
+    directionsDisplay.setPanel(null);
   }
   if (midpointMarker) midpointMarker.setMap(null);
   stopAnimation();
@@ -473,7 +474,7 @@ document.addEventListener("mouseup", () => {
 
 var animation;
 function animate() {
-  
+  if (mouseDown) return;
   if (map && !mouseDown) {
     heading += 0.2;
     map.moveCamera({ heading, tilt });

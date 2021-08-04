@@ -29,22 +29,24 @@
           <!-- Directions Menu Section -->
           <div id="directions" class="menu-section hide">
             <button type="button" id='go-back-button'>&#60; Back</button>
-            <div id="route-selection-container">
-              <div id="from-container">
-                <label>From: </label>
-                <form>
-                  <input type="text" class="select-css" id="start" READONLY/>
-                </form>
+            <div id="route-container">
+              <div id="route-selection-container">
+                <div id="from-container">
+                  <div class="label">From:</div>
+                  <form>
+                    <input type="text" class="select-css" id="start" READONLY/>
+                  </form>
+                </div>
+                <div id='to-container'>
+                  <div class="label">To:</div>
+                  <select id="end" class="select-css">
+                    <!-- Add options as <option>s here with JS -->
+                  </select>
+                </div>
               </div>
-              <div id='to-container'>
-                <label>To: </label>
-                <select id="end" class="select-css">
-                  <!-- Add options as <option>s here with JS -->
-                </select>
-              </div>
+              <button type = "submit" id='close-directions-button' class='button'>Clear</button>
+              <div id="direction-steps"></div>
             </div>
-            <button type = "submit" id='close-directions-button' class='button'>Clear</button>
-            <div id="direction-steps"></div>
           </div>
         </div>
         <div id="menu-button-container">

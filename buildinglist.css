@@ -7,7 +7,7 @@
   gap: 24px;
 
   /* Width of navigation button */
-  --navigation-width: 28px;
+  --navigation-width: 38px;
 }
 #menu.hide {
   /* Hack 110% instead of 100% because there was 1-pixel overlap */
@@ -62,6 +62,7 @@
   cursor: pointer;
   display: flex;
   position: relative;
+  font-size: 14px;
 
   transition: border 200ms ease;
 }
@@ -79,20 +80,18 @@
 }
 
 .navigation{
-  background-color: black;
   position: absolute;
   border: none;
   outline: none;
   cursor: pointer;
   display: none;
-  margin-right: 0;
   right: 0;
   top: 0;
-  bottom: 0;
   height: 100%;
+  padding: 0;
   width: var(--navigation-width);
-  white-space: nowrap;
-  background: url("./directions.png");
+  background-color: #222;
+  background-image: url("./directions.png");
   background-repeat: no-repeat;
   background-size: contain;
   background-position: center;
