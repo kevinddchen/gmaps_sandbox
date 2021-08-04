@@ -1,7 +1,7 @@
 // Building metadata located in meta.js
 
 // global vars to track buildings
-let selectedBuilding = '';
+let selectedBuilding = "";
 let displayedBuildings = [];
 const buildingListContainer = document.getElementById("building-list-container");
 
@@ -27,7 +27,7 @@ function initMap() {
   map = new google.maps.Map(document.getElementById("map"), {
     zoom: 16, // furthest zoom that can see buildings
     center: { lat: 42.37429224178242, lng: -71.11628459241092 }, // arbitrary start location
-    mapId: 'b536490391ffa6c2',
+    mapId: "b536490391ffa6c2",
     restriction: {
       latLngBounds: {
         north: 42.39, 
@@ -39,15 +39,15 @@ function initMap() {
   });
 
   //localization service set up
-  control = document.getElementById('selection-box');
-  let region = document.getElementById('region');
+  control = document.getElementById("selection-box");
+  let region = document.getElementById("region");
   map.controls[google.maps.ControlPosition.TOP_LEFT].push(control);
   // Due to the time between when the map is loaded and the control div is
   // added to the page it creates a jarring effect. This is a best effort
   // to minimize that.
-  google.maps.event.addListenerOnce(map, 'tilesloaded', function(e) {
-    control.style.display = 'none';
-    region.style.display = 'none';
+  google.maps.event.addListenerOnce(map, "tilesloaded", function(e) {
+    control.style.display = "none";
+    region.style.display = "none";
   });
   showDirections();
   
@@ -55,7 +55,7 @@ function initMap() {
   directionsDisplay = new google.maps.DirectionsRenderer({
     polylineOptions: new google.maps.Polyline({
       // map: map,
-      strokeColor: 'blue',
+      strokeColor: "blue",
       strokeWeight: 4,
       strokeOpacity: 0.6,
     }),
@@ -155,10 +155,10 @@ function initMap() {
     var coordinates = buildCoordinatesArrayFromString(coorData[i]);
     const Polygon = new google.maps.Polygon({
       paths: coordinates,
-      strokeColor: '#ff3158',
+      strokeColor: "#ff3158",
       strokeOpacity: 0.8,
       strokeWeight: 3,
-      fillColor: '#ff3158',
+      fillColor: "#ff3158",
       fillOpacity: 0.3,
       clickable: false
     })
@@ -171,10 +171,10 @@ function initMap() {
     var coordinates = buildCoordinatesArrayFromString(buildings[i]);
     const Polygon = new google.maps.Polygon({
       paths: coordinates,
-      strokeColor: '#ffffed',
+      strokeColor: "#ffffed",
       strokeOpacity: 0.8,
       strokeWeight: 1,
-      fillColor: '#ffffed',
+      fillColor: "#ffffed",
       fillOpacity: 0,
       visible: true
     });
@@ -199,7 +199,7 @@ function initMap() {
         url: "icon.png"
       },
       label: {
-        text: ' ',
+        text: " ",
         color: "black",
         fontWeight: "bold",
         fontSize: "16px"
@@ -228,20 +228,44 @@ function initMap() {
       windowLabels.setContent(marker.getTitle());
       windowLabels.open(marker.getMap(), marker);
       var Icon = marker.getIcon();
-      Icon.url = 'iconRed.png';
+      Icon.url = "iconRed.png";
       marker.setIcon(Icon);
       dirIcon = document.getElementById(location).style.display="block";
     });
 
 
-    marker.addListener('mouseout', () => {
+    marker.addListener("mouseout", () => {
       var Icon = marker.getIcon();
-      Icon.url = 'icon.png';
+      Icon.url = "icon.png";
       marker.setIcon(Icon);
       windowLabels.close();
       dirIcon = document.getElementById(location).style.display="none";
     });
   };
+}
+
+
+document.getElementById("searchbar-input").addEventListener("input", (ev) => {
+  const search = ev.currentTarget.value.toLowerCase();
+  displayedBuildings = meta.filter(b => b.title.toLowerCase().includes(search));
+  renderBuildingsList();
+});
+
+
+const endSelect = document.getElementById("end");
+endSelect.addEventListener("change", (event) => updateRoute(event.currentTarget.value));
+
+const startSelect = document.getElementById("start");
+startSelect.addEventListener("change", (event) => updateRoute(event.currentTarget.value));
+
+function updateRoute(value) {
+  buildingB = meta.find(b => b.title === value);
+  if (directionsDisplay != null) {
+    directionsDisplay.setMap(null);
+  }
+  cancelAnimationFrame(animation);
+  stopAnimation();
+  calculateAndDisplayRoute(directionsService, directionsDisplay, buildingA.position, buildingB.position);
 }
 
 //function creates Div for the building list
@@ -261,9 +285,9 @@ function createBuildingListDiv(building) {
   elt.onclick = () => {
     selectedBuilding = elt.dataset.value;
     renderBuildingsList();
-    document.getElementById('start').value = building.title;
-    const startMenu = building.title;
-    buildingA = meta.find(b => b.title === startMenu);
+    startSelect.value = building.title;
+    const start = building.title;
+    buildingA = meta.find(b => b.title === start);
     map.moveCamera({
       center: new google.maps.LatLng(buildingA.position.lat, buildingA.position.lng),
       zoom: 20,
@@ -281,38 +305,21 @@ function createBuildingListDiv(building) {
   buildingListContainer.appendChild(elt);
 }
 
-document.getElementById("searchbar-input").addEventListener("input", (ev) => {
-  const search = ev.currentTarget.value.toLowerCase();
-  displayedBuildings = meta.filter(b => b.title.toLowerCase().includes(search));
-  renderBuildingsList();
-});
-
-// Event listeners
-
-const endMenu = document.getElementById('end');
-endMenu.addEventListener('change', (event) => {
-  const value = event.currentTarget.value;
-  buildingB = meta.find(b => b.title === value);
-  if (directionsDisplay != null) {
-    directionsDisplay.setMap(null);
-  }
-  cancelAnimationFrame(animation);
-  stopAnimation();
-  calculateAndDisplayRoute(directionsService, directionsDisplay, buildingA.position, buildingB.position);
-  
-});
-
 //function creates Select for the directions
 function createBuildingListSelect(building) {
-  let select = document.getElementById('end');
-  const opt = document.createElement("option");
-  opt.value = building.title;
-  opt.text = building.title;
-  select.add(opt, null);
+  const endOpt = document.createElement("option");
+  endOpt.value = building.title;
+  endOpt.text = building.title;
+  endSelect.add(endOpt, null);
+
+  const startOpt = document.createElement("option");
+  startOpt.value = building.title;
+  startOpt.text = building.title;
+  startSelect.add(startOpt, null);
 }
 
 //click event to clear current route
-let btn = document.getElementById('close-directions-button');
+let btn = document.getElementById("close-directions-button");
 btn.addEventListener("click", function() {
   if (directionsDisplay != null) {
     directionsDisplay.setMap(null);
@@ -320,7 +327,7 @@ btn.addEventListener("click", function() {
   }
   if (midpointMarker) midpointMarker.setMap(null);
   stopAnimation();
-  document.getElementById('end').value = " ";
+  document.getElementById("end").value = " ";
 });
 
 //click event to go back to main side menu
@@ -333,7 +340,7 @@ closeDirections.addEventListener("click", () => {
   }
   if (midpointMarker) midpointMarker.setMap(null);
   stopAnimation();
-  document.getElementById('end').value = " ";
+  document.getElementById("end").value = " ";
   map.moveCamera({
     center: {lat: 42.37429224178242, lng: -71.11628459241092 },
     zoom: 15,
@@ -343,9 +350,9 @@ closeDirections.addEventListener("click", () => {
 });
 
 //click event to pop up language window
-let language = document.getElementById('Language');
+let language = document.getElementById("Language");
 language.addEventListener("click", () => {
-  control.style.display = 'block';
+  control.style.display = "block";
 });
 
 
@@ -355,7 +362,7 @@ function buildCoordinatesArrayFromString(MultiGeometryCoordinates){
   var grouped = MultiGeometryCoordinates.split("\n");
 
   grouped.forEach(function(item, i){
-      let a = item.trim().split(',');
+      let a = item.trim().split(",");
 
       finalData.push({
           lng: parseFloat(a[0]),
@@ -485,7 +492,7 @@ function animate() {
 
 function stopAnimation() {
   cancelAnimationFrame(animation);
-  var name = document.getElementById('start').value;
+  var name = document.getElementById("start").value;
   building = meta.find(b => b.title === name);
   map.moveCamera({
     center: new google.maps.LatLng(building.position.lat, building.position.lng),

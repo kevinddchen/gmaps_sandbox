@@ -17,7 +17,7 @@
 /* Search bar style */
 #searchbar-container {
   width: 100%;
-  min-height: 30px;
+  min-height: 36px;
   background-color: #ffffff;
   border-radius: 8px;
   overflow: hidden;
@@ -28,11 +28,15 @@
   padding-left: 8px;
 }
 #searchbar-input {
+  font-size: 14px;
   width: 100%;
   border: none;
   box-sizing: border-box;
   padding: 8px 8px;
   font-size: inherit;
+}
+#searchbar-input::placeholder {
+  color: #DADADA;
 }
 #searchbar-input:focus {
   outline: none;

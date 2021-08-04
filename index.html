@@ -19,7 +19,7 @@
           <!-- Building List Menu Section -->
           <div id="menu" class="menu-section">
             <div id="searchbar-container">
-              <input type="text" id="searchbar-input">
+              <input type="text" id="searchbar-input" placeholder="Search buildings">
               <i id="searchbar-icon"><img src="./icon-magnifying-glass.svg" alt="Search" /></i>
             </div>
             <div id="building-list-container">
@@ -33,9 +33,9 @@
               <div id="route-selection-container">
                 <div id="from-container">
                   <div class="label">From:</div>
-                  <form>
-                    <input type="text" class="select-css" id="start" READONLY/>
-                  </form>
+                  <select id="start" class="select-css">
+                    <!-- Add options as <option>s here with JS -->
+                  </select>
                 </div>
                 <div id='to-container'>
                   <div class="label">To:</div>
