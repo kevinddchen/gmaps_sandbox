@@ -1,8 +1,22 @@
 #directions {
+  background-color: #fff;
   box-sizing: border-box;
+  border-radius: 8px;
+  padding: 10px;
 
   display: flex;
   flex-direction: column;
+  gap: 20px;
+}
+
+#go-back-button {
+  background: none;
+  border: none;
+  outline: none;
+}
+
+#from-container {
+  margin-bottom: 10px;;
 }
 
 #directions.hide {
@@ -11,23 +25,9 @@
 }
 
 #direction-steps {
-  height: 100%;
   overflow-y: auto;
-  margin: 20px 0;
-}
-
-#directions-button-container {
-  width: 100%;
-  margin-top: auto;
-  display: flex;
-  flex-direction: column;
-  gap: 20px;
-}
-
-#close-directions-button {
-  text-align: center;
 }
 
 #go-back-button {
-  text-align: center;
+  margin-right: auto;
 }
